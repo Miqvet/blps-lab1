@@ -1,5 +1,8 @@
 package itmo.blps.lab1.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.blps.lab1.converters.PaymentConverter;
 import itmo.blps.lab1.dto.PaymentDTO;
 import itmo.blps.lab1.entity.Payment;
@@ -10,24 +13,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Tag(name = "Платежи", description = "API для управления платежами")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/payment")
 public class PaymentController {
 
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
 
-    // Получить статус платежа
+    @Operation(summary = "Получить статус платежа",
+            description = "Возвращает статус платежа для указанного заказа.")
     @GetMapping("/{orderId}")
-    public ResponseEntity<PaymentDTO> getPaymentStatus(@PathVariable UUID orderId) {
+    public ResponseEntity<PaymentDTO> getPaymentStatus(
+            @Parameter(description = "ID заказа", required = true)
+            @PathVariable UUID orderId) {
+
         Payment payment = paymentService.getPaymentByOrderId(orderId);
         return payment != null ? ResponseEntity.ok(PaymentConverter.toDTO(payment)) : ResponseEntity.notFound().build();
     }
 
-    // Обработка платежа
+    @Operation(summary = "Обработка платежа",
+            description = "Обрабатывает платеж для указанного заказа с заданным методом оплаты.")
     @PostMapping("/{orderId}")
     public ResponseEntity<String> processPayment(
+            @Parameter(description = "ID заказа", required = true)
             @PathVariable UUID orderId,
+            @Parameter(description = "Метод оплаты", required = true)
             @RequestParam Payment.PaymentMethod method) {
 
         try {

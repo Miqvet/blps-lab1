@@ -1,5 +1,8 @@
 package itmo.blps.lab1.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.blps.lab1.converters.OrderConverter;
 import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
@@ -12,23 +15,34 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Tag(name = "Заказы", description = "API для управления заказами пользователей")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
-    // Оформить заказ
+    @Operation(summary = "Оформить заказ",
+            description = "Создает новый заказ для указанного пользователя.")
     @PostMapping("/checkout")
-    public ResponseEntity<OrderDTO> checkout(@RequestParam UUID userId, @RequestParam String deliveryAddress) {
+    public ResponseEntity<OrderDTO> checkout(
+            @Parameter(description = "ID пользователя", required = true)
+            @RequestParam UUID userId,
+            @Parameter(description = "Адрес доставки", required = true)
+            @RequestParam String deliveryAddress) {
+
         Order order = orderService.placeOrder(userId, deliveryAddress);
         return ResponseEntity.ok(OrderConverter.toDTO(order));
     }
 
-    // Получить заказы пользователя
+    @Operation(summary = "Получить заказы пользователя",
+            description = "Возвращает список заказов для указанного пользователя.")
     @GetMapping("/{userId}")
-    public ResponseEntity<List<OrderDTO>> getUserOrders(@PathVariable UUID userId) {
+    public ResponseEntity<List<OrderDTO>> getUserOrders(
+            @Parameter(description = "ID пользователя", required = true)
+            @PathVariable UUID userId) {
+
         List<OrderDTO> orders = orderService.getUserOrders(userId).stream()
                 .map(OrderConverter::toDTO)
                 .collect(Collectors.toList());

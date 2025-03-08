@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c47ab1ac-d6ef-4635-910e-96d9d6b6d401.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c47ab1ac-d6ef-4635-910e-96d9d6b6d401/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c47ab1ac-d6ef-4635-910e-96d9d6b6d401/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240/storage_v2/_src_/database/card-controller.ecrS3g/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240/storage_v2/_src_/database/card-controller.ecrS3g/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CategoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/converters/OrderConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/converters/OrderConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/ProductService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1741426921025</updated>
       <workItem from="1741426922108" duration="8197000" />
-      <workItem from="1741453279771" duration="8861000" />
+      <workItem from="1741453279771" duration="9782000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,8 @@
 package itmo.blps.lab1.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.blps.lab1.converters.CartConverter;
 import itmo.blps.lab1.dto.CartDTO;
 import itmo.blps.lab1.entity.Cart;
@@ -10,25 +13,34 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Tag(name = "Управление корзиной", description = "API для работы с корзинами пользователей")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/cart")
 public class CartController {
 
-    private CartService cartService;
+    private final CartService cartService;
 
-    // Получить товары в корзине
+    @Operation(summary = "Получить товары в корзине",
+            description = "Возвращает корзину указанного пользователя по его ID.")
     @GetMapping("/{userId}")
-    public ResponseEntity<CartDTO> getCart(@PathVariable UUID userId) {
+    public ResponseEntity<CartDTO> getCart(
+            @Parameter(description = "UUID пользователя, чью корзину нужно получить", required = true)
+            @PathVariable UUID userId) {
+
         Cart cart = cartService.getCartByUserId(userId);
         return cart != null ? ResponseEntity.ok(CartConverter.toDTO(cart)) : ResponseEntity.notFound().build();
     }
 
-    // Добавить товар в корзину
+    @Operation(summary = "Добавить товар в корзину",
+            description = "Добавляет указанный товар в корзину пользователя по заданному количеству.")
     @PostMapping("/{userId}/add")
     public ResponseEntity<CartDTO> addToCart(
+            @Parameter(description = "UUID пользователя, которому будет добавлен товар", required = true)
             @PathVariable UUID userId,
+            @Parameter(description = "UUID товара, который нужно добавить", required = true)
             @RequestParam UUID productId,
+            @Parameter(description = "Количество товара, которое нужно добавить", required = true)
             @RequestParam Integer quantity) {
 
         Cart cart = cartService.addToCart(userId, productId, quantity);
