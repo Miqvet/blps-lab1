@@ -4,6 +4,7 @@ import itmo.blps.lab1.util.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,6 +23,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
@@ -47,12 +49,10 @@ public class SecurityConfig {
                                 "/api/products/**",
                                 "/api/payment/**",
                                 "/api/category/**"
-                        ).permitAll()
-//                        hasAnyRole("ADMIN", "USER")
+                        ).authenticated()
                         .requestMatchers("/api/delivery/{orderId}/start",
                                 "/api/delivery/{orderId}/status"
-                        ).permitAll()
-//                                hasRole("ADMIN")
+                        ).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

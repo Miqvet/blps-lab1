@@ -24,7 +24,7 @@ public class DeliveryController {
 
     @Operation(summary = "Начать доставку",
             description = "Запускает процесс доставки для указанного заказа.")
-    //    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{orderId}/start")
     public ResponseEntity<OrderDTO> startDelivery(
             @Parameter(description = "ID заказа", required = true)
@@ -36,7 +36,7 @@ public class DeliveryController {
 
     @Operation(summary = "Обновить статус доставки",
             description = "Обновляет статус доставки для указанного заказа.")
-    //    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{orderId}/status")
     public ResponseEntity<OrderDTO> updateDeliveryStatus(
             @Parameter(description = "ID заказа", required = true)
