@@ -1,9 +1,10 @@
 package itmo.blps.lab1.controller;
 
+import itmo.blps.lab1.converters.PaymentConverter;
+import itmo.blps.lab1.dto.PaymentDTO;
 import itmo.blps.lab1.entity.Payment;
 import itmo.blps.lab1.service.PaymentService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,17 @@ public class PaymentController {
 
     private PaymentService paymentService;
 
+    // Получить статус платежа
+    @GetMapping("/{orderId}")
+    public ResponseEntity<PaymentDTO> getPaymentStatus(@PathVariable UUID orderId) {
+        Payment payment = paymentService.getPaymentByOrderId(orderId);
+        return payment != null ? ResponseEntity.ok(PaymentConverter.toDTO(payment)) : ResponseEntity.notFound().build();
+    }
+
     // Обработка платежа
-    @PostMapping("/process")
+    @PostMapping("/{orderId}")
     public ResponseEntity<String> processPayment(
-            @RequestParam UUID orderId,
+            @PathVariable UUID orderId,
             @RequestParam Payment.PaymentMethod method) {
 
         try {

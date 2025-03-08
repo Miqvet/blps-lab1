@@ -40,5 +40,12 @@ public class PaymentService {
 
         return payment;
     }
+
+    @Transactional(readOnly = true)
+    public Payment getPaymentByOrderId(UUID orderId) {
+        return paymentRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+    }
+
 }
 
