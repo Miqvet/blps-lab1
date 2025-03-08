@@ -27,7 +27,7 @@ public class JwtUtil {
 
     public String generateToken(User userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        return createToken(claims, userDetails.getName());
     }
 
     private String createToken(Map<String, Object> claims, String subject) {

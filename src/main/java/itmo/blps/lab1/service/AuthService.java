@@ -17,15 +17,16 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public User registerUser(RegisterRequest request) {
-        if (userService.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException("User with username " + request.getUsername() + " already exists");
+        if (userService.existsByUsername(request.getName())) {
+            throw new IllegalArgumentException("User with username " + request.getName() + " already exists");
         }
 
         User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setName(request.getName());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
+        user.setRole(User.Role.USER); //TODO Добавить или подумать над логикой роли
         return userService.save(user);
     }
 

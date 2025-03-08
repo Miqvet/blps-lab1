@@ -7,6 +7,8 @@ import itmo.blps.lab1.repository.CartRepository;
 import itmo.blps.lab1.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -49,5 +51,10 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         order.setStatus(Order.OrderStatus.CANCELED);
         orderRepository.save(order);
+    }
+
+    // Получить заказы пользователя
+    public List<Order> getUserOrders(UUID userId) {
+        return orderRepository.findByUserId(userId);
     }
 }

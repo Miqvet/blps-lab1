@@ -36,10 +36,14 @@ public class Payment {
     private String transactionId;
 
     public enum PaymentStatus {
-        PENDING, COMPLETED, FAILED
+        PENDING,
+        COMPLETED,
+        FAILED
     }
 
     public enum PaymentMethod {
-        CREDIT_CARD, PAYPAL, APPLE_PAY
+        CREDIT_CARD,
+        PAYPAL,
+        APPLE_PAY
     }
 }

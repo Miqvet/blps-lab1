@@ -33,7 +33,7 @@ public class CartService {
     }
 
     @Transactional
-    public void addToCart(UUID userId, UUID productId, int quantity) {
+    public Cart addToCart(UUID userId, UUID productId, int quantity) {
         Cart cart = getCartByUserId(userId);
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -43,7 +43,7 @@ public class CartService {
         }
 
         cart.getItems().add(new CartItem(null, cart, product, quantity));
-        cartRepository.save(cart);
+        return cartRepository.save(cart);
     }
 
     @Transactional
