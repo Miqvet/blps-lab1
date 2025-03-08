@@ -30,7 +30,7 @@ public class AuthService {
     }
 
     public String authenticateUser(AuthRequest request) {
-        User user = userService.findByUsername(request.getUsername());
+        User user = userService.findByEmail(request.getEmail());
         if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Неверные учетные данные");
         }
