@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -41,16 +42,9 @@ public class Order {
     @Column(nullable = false)
     private String deliveryAddress;
 
-    @Column
-    private String trackingNumber;
-
     @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = new Timestamp(System.currentTimeMillis());
-    }
 
     public enum OrderStatus {
         PENDING,

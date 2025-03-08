@@ -5,7 +5,9 @@ import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
 import itmo.blps.lab1.service.DeliveryService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,6 +20,7 @@ public class DeliveryController {
     private DeliveryService deliveryService;
 
     // Начать доставку
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{orderId}/start")
     public ResponseEntity<OrderDTO> startDelivery(@PathVariable UUID orderId) {
         Order order = deliveryService.startDelivery(orderId);
@@ -25,6 +28,7 @@ public class DeliveryController {
     }
 
     // Обновление статуса доставки
+//    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{orderId}/status")
     public ResponseEntity<OrderDTO> updateDeliveryStatus(
             @PathVariable UUID orderId,

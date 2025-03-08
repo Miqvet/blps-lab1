@@ -20,7 +20,6 @@ public class OrderConverter {
         dto.setTotalPrice(order.getTotalPrice());
         dto.setDeliveryAddress(order.getDeliveryAddress());
         dto.setStatus(OrderDTO.OrderStatus.valueOf(order.getStatus().name()));
-        dto.setTrackingNumber(order.getTrackingNumber());
         return dto;
     }
 
@@ -32,7 +31,6 @@ public class OrderConverter {
         order.setTotalPrice(dto.getTotalPrice());
         order.setDeliveryAddress(dto.getDeliveryAddress());
         order.setStatus(Order.OrderStatus.valueOf(dto.getStatus().name()));
-        order.setTrackingNumber(dto.getTrackingNumber());
         return order;
     }
 }

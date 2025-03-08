@@ -41,10 +41,19 @@ public class SecurityConfig {
                                 "/swagger-resources/**", // Разрешить доступ к ресурсам Swagger
                                 "/webjars/**"           // Разрешить доступ к веб-ресурсам Swagger
                         ).permitAll()
-                        .requestMatchers("/api/accounts/**",
-                                "/api/cards/**",
-                                "/api/admin/**"
-                        ).authenticated()
+                        .requestMatchers("/api/cart/**",
+                                "/api/delivery/{orderId}/track",
+                                "/api/orders/**",
+                                "/api/products/**",
+                                "/api/payment/**",
+                                "/api/category/**"
+                        ).permitAll()
+//                        hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/delivery/{orderId}/start",
+                                "/api/delivery/{orderId}/status"
+                        ).permitAll()
+//                                hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

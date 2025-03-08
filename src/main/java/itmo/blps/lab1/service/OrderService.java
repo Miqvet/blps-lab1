@@ -1,13 +1,12 @@
 package itmo.blps.lab1.service;
 
-import itmo.blps.lab1.entity.Cart;
-import itmo.blps.lab1.entity.Order;
-import itmo.blps.lab1.entity.OrderItem;
+import itmo.blps.lab1.entity.*;
 import itmo.blps.lab1.repository.CartRepository;
 import itmo.blps.lab1.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -40,6 +39,8 @@ public class OrderService {
         order.setItems(cart.getItems().stream().map(cartItem ->
                 new OrderItem(null, order, cartItem.getProduct(), cartItem.getQuantity(), cartItem.getProduct().getPrice())
         ).collect(Collectors.toList()));
+        order.setTotalPrice(cart.getItems().stream().map(t -> t.getProduct().getPrice().multiply(BigDecimal.valueOf(t.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add));
 
         orderRepository.save(order);
         cartRepository.delete(cart); // Очистка корзины после оформления заказа

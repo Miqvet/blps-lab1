@@ -19,7 +19,6 @@ public class OrderDTO {
     private BigDecimal totalPrice;
     private String deliveryAddress;
     private OrderStatus status;
-    private String trackingNumber;
 
     public enum OrderStatus {
         PENDING,
