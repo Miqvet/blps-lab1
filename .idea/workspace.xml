@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/AuthRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/AuthRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/util/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/util/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +37,13 @@
   "keyToString": {
     "Maven.lab1 [clean,package].executor": "Run",
     "Maven.lab1 [clean].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Lab1Application.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -57,6 +54,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RunAnythingCache">
@@ -91,7 +93,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1741426921025</updated>
-      <workItem from="1741426922108" duration="3688000" />
+      <workItem from="1741426922108" duration="5573000" />
     </task>
     <servers />
   </component>

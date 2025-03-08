@@ -41,7 +41,10 @@ public class SecurityConfig {
                                 "/swagger-resources/**", // Разрешить доступ к ресурсам Swagger
                                 "/webjars/**"           // Разрешить доступ к веб-ресурсам Swagger
                         ).permitAll()
-                        .requestMatchers("/api/accounts/**", "/api/cards/**", "/api/admin/**").authenticated()
+                        .requestMatchers("/api/accounts/**",
+                                "/api/cards/**",
+                                "/api/admin/**"
+                        ).authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
