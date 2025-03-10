@@ -26,7 +26,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setRole(User.Role.USER); //TODO Добавить или подумать над логикой роли
+        user.setRole(User.Role.USER);
         return userService.save(user);
     }
 

@@ -16,7 +16,7 @@ import java.util.UUID;
 @Tag(name = "Управление корзиной", description = "API для работы с корзинами пользователей")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/cart")
+@RequestMapping("/api/carts")
 public class CartController {
 
     private final CartService cartService;

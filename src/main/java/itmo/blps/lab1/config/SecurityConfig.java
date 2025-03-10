@@ -43,15 +43,15 @@ public class SecurityConfig {
                                 "/swagger-resources/**", // Разрешить доступ к ресурсам Swagger
                                 "/webjars/**"           // Разрешить доступ к веб-ресурсам Swagger
                         ).permitAll()
-                        .requestMatchers("/api/cart/**",
-                                "/api/delivery/{orderId}/track",
+                        .requestMatchers("/api/carts/**",
+                                "/api/deliveries/{orderId}/track",
                                 "/api/orders/**",
                                 "/api/products/**",
-                                "/api/payment/**",
-                                "/api/category/**"
+                                "/api/payments/**",
+                                "/api/categories/**"
                         ).authenticated()
-                        .requestMatchers("/api/delivery/{orderId}/start",
-                                "/api/delivery/{orderId}/status"
+                        .requestMatchers("/api/deliveries/{orderId}/start",
+                                "/api/deliveries/{orderId}/status"
                         ).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

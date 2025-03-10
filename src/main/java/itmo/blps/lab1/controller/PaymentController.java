@@ -16,7 +16,7 @@ import java.util.UUID;
 @Tag(name = "Платежи", description = "API для управления платежами")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/payment")
+@RequestMapping("/api/payments")
 public class PaymentController {
 
     private final PaymentService paymentService;

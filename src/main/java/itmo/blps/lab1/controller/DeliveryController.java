@@ -17,7 +17,7 @@ import java.util.UUID;
 @Tag(name = "Доставка", description = "API для управления доставкой заказов")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/delivery")
+@RequestMapping("/api/deliveries")
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
