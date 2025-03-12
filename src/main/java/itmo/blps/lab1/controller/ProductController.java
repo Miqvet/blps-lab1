@@ -11,8 +11,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.server.header.StrictTransportSecurityServerHttpHeadersWriter;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +48,9 @@ public class ProductController {
     @PostMapping()
     public ResponseEntity<ProductDTO> addProducts(
             @RequestBody CreateProductRequest createProductRequest) {
-
+        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) > 0){
+            throw new RuntimeException("Цена должна быть больше 0");
+        }
         return ResponseEntity.ok(ProductConverter.toDTO(productService.addProduct(createProductRequest)));
     }
 }

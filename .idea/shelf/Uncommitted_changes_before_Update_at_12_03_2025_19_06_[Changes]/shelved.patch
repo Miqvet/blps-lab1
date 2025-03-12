@@ -1,0 +1,272 @@
+Index: src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package itmo.blps.lab1.dto.request;\r\n\r\nimport lombok.Data;\r\n\r\n@Data\r\npublic class RegisterRequest {\r\n    private String email;\r\n    private String name;\r\n    private String password;\r\n    private String phoneNumber;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java b/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java
+--- a/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java	(date 1741794609005)
+@@ -1,11 +1,33 @@
+ package itmo.blps.lab1.dto.request;
+ 
++import jakarta.validation.constraints.Email;
++import jakarta.validation.constraints.NotBlank;
++import jakarta.validation.constraints.Pattern;
++import jakarta.validation.constraints.Size;
+ import lombok.Data;
+ 
+ @Data
+ public class RegisterRequest {
++
++    @NotBlank(message = "Email обязателен")
++    @Email(message = "Некорректный формат email")
+     private String email;
++
++    @NotBlank(message = "Имя обязательно")
++    @Size(min = 5, message = "Имя должно быть не менее 5 символов")
++    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Имя может содержать только буквы и пробелы")
+     private String name;
++
++    @NotBlank(message = "Пароль обязателен")
++    @Size(min = 8, message = "Пароль должен быть не менее 8 символов")
++    @Pattern(
++            regexp = "^(?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$",
++            message = "Пароль должен содержать хотя бы одну цифру, заглавную и строчную букву"
++    )
+     private String password;
++
++    @NotBlank(message = "Номер телефона обязателен")
++    @Pattern(regexp = "^\\+?7\\d{10}$",
++            message = "Номер должен быть в формате +7XXXXXXXXXX или 7XXXXXXXXXX")
+     private String phoneNumber;
+ }
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <parent>\r\n        <groupId>org.springframework.boot</groupId>\r\n        <artifactId>spring-boot-starter-parent</artifactId>\r\n        <version>3.4.2</version>\r\n        <relativePath/> <!-- lookup parent from repository -->\r\n    </parent>\r\n    <groupId>itmo.blps</groupId>\r\n    <artifactId>lab1</artifactId>\r\n    <version>0.0.1-SNAPSHOT</version>\r\n    <name>lab1</name>\r\n    <description>lab1</description>\r\n    <url/>\r\n    <licenses>\r\n        <license/>\r\n    </licenses>\r\n    <developers>\r\n        <developer/>\r\n    </developers>\r\n    <scm>\r\n        <connection/>\r\n        <developerConnection/>\r\n        <tag/>\r\n        <url/>\r\n    </scm>\r\n    <properties>\r\n        <java.version>17</java.version>\r\n    </properties>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-data-jpa</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-security</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-web</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.session</groupId>\r\n            <artifactId>spring-session-core</artifactId>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-devtools</artifactId>\r\n            <scope>runtime</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.postgresql</groupId>\r\n            <artifactId>postgresql</artifactId>\r\n            <scope>runtime</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.swagger.core.v3</groupId>\r\n            <artifactId>swagger-annotations</artifactId>\r\n            <version>2.2.28</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>jakarta.validation</groupId>\r\n            <artifactId>jakarta.validation-api</artifactId>\r\n            <version>3.1.1</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.security</groupId>\r\n            <artifactId>spring-security-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>io.jsonwebtoken</groupId>\r\n            <artifactId>jjwt-api</artifactId>\r\n            <version>0.11.5</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.jsonwebtoken</groupId>\r\n            <artifactId>jjwt-impl</artifactId>\r\n            <version>0.11.5</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.jsonwebtoken</groupId>\r\n            <artifactId>jjwt-jackson</artifactId>\r\n            <version>0.11.5</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.apache.commons</groupId>\r\n            <artifactId>commons-lang3</artifactId>\r\n            <version>3.17.0</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springdoc</groupId>\r\n            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>\r\n            <version>2.2.0</version> <!-- Актуальная версия -->\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.springframework.boot</groupId>\r\n                <artifactId>spring-boot-maven-plugin</artifactId>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/pom.xml	(date 1741794852849)
+@@ -40,6 +40,10 @@
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-validation</artifactId>
++        </dependency>
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-web</artifactId>
+         </dependency>
+         <dependency>
+Index: src/main/java/itmo/blps/lab1/controller/AuthController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package itmo.blps.lab1.controller;\r\n\r\n\r\nimport io.swagger.v3.oas.annotations.Operation;\r\nimport io.swagger.v3.oas.annotations.Parameter;\r\nimport io.swagger.v3.oas.annotations.tags.Tag;\r\nimport itmo.blps.lab1.dto.request.AuthRequest;\r\nimport itmo.blps.lab1.dto.request.RegisterRequest;\r\nimport itmo.blps.lab1.dto.response.AuthResponse;\r\nimport itmo.blps.lab1.entity.User;\r\nimport itmo.blps.lab1.service.AuthService;\r\nimport lombok.AllArgsConstructor;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\n@Tag(name = \"Аутентификация\", description = \"API для регистрации и входа пользователей\")\r\n@RestController\r\n@AllArgsConstructor\r\n@RequestMapping(\"/api\")\r\npublic class AuthController {\r\n\r\n    private final AuthService authService;\r\n\r\n    @Operation(summary = \"Регистрация пользователя\",\r\n            description = \"Создает нового пользователя на основе переданных данных.\")\r\n    @PostMapping(\"/register\")\r\n    public ResponseEntity<User> register(\r\n            @Parameter(description = \"Данные для регистрации пользователя\", required = true)\r\n            @RequestBody RegisterRequest request) {\r\n\r\n        return ResponseEntity.ok(authService.registerUser(request));\r\n    }\r\n\r\n    @Operation(summary = \"Вход пользователя\",\r\n            description = \"Аутентифицирует пользователя по предоставленным учетным данным.\")\r\n    @PostMapping(\"/login\")\r\n    public ResponseEntity<AuthResponse> login(\r\n            @Parameter(description = \"Данные для входа пользователя\", required = true)\r\n            @RequestBody AuthRequest request) {\r\n\r\n        String token = authService.authenticateUser(request);\r\n        return ResponseEntity.ok(new AuthResponse(token, \"Success\"));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/itmo/blps/lab1/controller/AuthController.java b/src/main/java/itmo/blps/lab1/controller/AuthController.java
+--- a/src/main/java/itmo/blps/lab1/controller/AuthController.java	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/src/main/java/itmo/blps/lab1/controller/AuthController.java	(date 1741795549451)
+@@ -4,15 +4,24 @@
+ import io.swagger.v3.oas.annotations.Operation;
+ import io.swagger.v3.oas.annotations.Parameter;
+ import io.swagger.v3.oas.annotations.tags.Tag;
++import itmo.blps.lab1.converters.UserConverter;
++import itmo.blps.lab1.dto.UserDTO;
+ import itmo.blps.lab1.dto.request.AuthRequest;
+ import itmo.blps.lab1.dto.request.RegisterRequest;
+ import itmo.blps.lab1.dto.response.AuthResponse;
+ import itmo.blps.lab1.entity.User;
+ import itmo.blps.lab1.service.AuthService;
++import itmo.blps.lab1.util.Validator;
++import jakarta.validation.Valid;
+ import lombok.AllArgsConstructor;
++import org.springframework.http.HttpStatus;
+ import org.springframework.http.ResponseEntity;
++import org.springframework.validation.BindingResult;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.util.HashMap;
++import java.util.Map;
++
+ @Tag(name = "Аутентификация", description = "API для регистрации и входа пользователей")
+ @RestController
+ @AllArgsConstructor
+@@ -24,11 +33,14 @@
+     @Operation(summary = "Регистрация пользователя",
+             description = "Создает нового пользователя на основе переданных данных.")
+     @PostMapping("/register")
+-    public ResponseEntity<User> register(
++    public ResponseEntity<?> register(
+             @Parameter(description = "Данные для регистрации пользователя", required = true)
+-            @RequestBody RegisterRequest request) {
+-
+-        return ResponseEntity.ok(authService.registerUser(request));
++            @Valid @RequestBody RegisterRequest request,
++            BindingResult bindingResult) {
++        if (Validator.isValidPerson(request)){
++            return ResponseEntity.ok(UserConverter.toDTO(authService.registerUser(request)));
++        }
++        return new ResponseEntity<>("Проверьте корректность полей", HttpStatus.BAD_REQUEST);
+     }
+ 
+     @Operation(summary = "Вход пользователя",
+@@ -36,7 +48,7 @@
+     @PostMapping("/login")
+     public ResponseEntity<AuthResponse> login(
+             @Parameter(description = "Данные для входа пользователя", required = true)
+-            @RequestBody AuthRequest request) {
++            @Valid @RequestBody AuthRequest request) {
+ 
+         String token = authService.authenticateUser(request);
+         return ResponseEntity.ok(new AuthResponse(token, "Success"));
+Index: src/main/java/itmo/blps/lab1/controller/ProductController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package itmo.blps.lab1.controller;\r\n\r\nimport io.swagger.v3.oas.annotations.Operation;\r\nimport io.swagger.v3.oas.annotations.tags.Tag;\r\nimport itmo.blps.lab1.converters.ProductConverter;\r\nimport itmo.blps.lab1.dto.ProductDTO;\r\nimport itmo.blps.lab1.dto.request.CreateProductRequest;\r\nimport itmo.blps.lab1.service.ProductService;\r\nimport lombok.AllArgsConstructor;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n@Tag(name = \"Товары\", description = \"API для управления товарами\")\r\n@RestController\r\n@AllArgsConstructor\r\n@RequestMapping(\"/api/products\")\r\npublic class ProductController {\r\n\r\n    private final ProductService productService;\r\n\r\n    @Operation(summary = \"Получить список товаров\",\r\n            description = \"Возвращает список всех доступных товаров.\")\r\n    @GetMapping\r\n    public ResponseEntity<List<ProductDTO>> getProducts() {\r\n        List<ProductDTO> products = productService.getAllProducts().stream()\r\n                .map(ProductConverter::toDTO)\r\n                .collect(Collectors.toList());\r\n        return ResponseEntity.ok(products);\r\n    }\r\n\r\n    @Operation(summary = \"Добавить товар\",\r\n            description = \"Создает новый товар на основе переданных данных.\")\r\n    @PostMapping(\"/create\")\r\n    public ResponseEntity<ProductDTO> addProducts(\r\n            @RequestBody CreateProductRequest createProductRequest) {\r\n\r\n        return ResponseEntity.ok(ProductConverter.toDTO(productService.addProduct(createProductRequest)));\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/itmo/blps/lab1/controller/ProductController.java b/src/main/java/itmo/blps/lab1/controller/ProductController.java
+--- a/src/main/java/itmo/blps/lab1/controller/ProductController.java	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/src/main/java/itmo/blps/lab1/controller/ProductController.java	(date 1741794510689)
+@@ -8,8 +8,10 @@
+ import itmo.blps.lab1.service.ProductService;
+ import lombok.AllArgsConstructor;
+ import org.springframework.http.ResponseEntity;
++import org.springframework.security.web.server.header.StrictTransportSecurityServerHttpHeadersWriter;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.math.BigDecimal;
+ import java.util.List;
+ import java.util.stream.Collectors;
+ 
+@@ -36,7 +38,9 @@
+     @PostMapping("/create")
+     public ResponseEntity<ProductDTO> addProducts(
+             @RequestBody CreateProductRequest createProductRequest) {
+-
++        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) > 0){
++            throw new RuntimeException("Цена должна быть больше 0");
++        }
+         return ResponseEntity.ok(ProductConverter.toDTO(productService.addProduct(createProductRequest)));
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2f9ec677-8a44-4c70-8443-0457a6bc843b\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/application.properties\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2u1rSTeLz77PlRIACqS4nUyBIWu\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Maven.lab1 [clean,package].executor&quot;: &quot;Run&quot;,\r\n    &quot;Maven.lab1 [clean].executor&quot;: &quot;Run&quot;,\r\n    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,\r\n    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,\r\n    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,\r\n    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;Spring Boot.Lab1Application.executor&quot;: &quot;Run&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/Itmo/6_SEM/business-logic-software-system/lab1&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;postgresql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RunAnythingCache\">\r\n    <option name=\"myCommands\">\r\n      <command value=\"mvn clean\" />\r\n      <command value=\"mvn clean package\" />\r\n    </option>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Lab1Application\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <option name=\"FRAME_DEACTIVATION_UPDATE_POLICY\" value=\"UpdateClassesAndResources\" />\r\n      <module name=\"lab1\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"itmo.blps.lab1.Lab1Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150\" />\r\n        <option value=\"bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2f9ec677-8a44-4c70-8443-0457a6bc843b\" name=\"Changes\" comment=\"\" />\r\n      <created>1741426921025</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1741426921025</updated>\r\n      <workItem from=\"1741426922108\" duration=\"8197000\" />\r\n      <workItem from=\"1741453279771\" duration=\"13576000\" />\r\n      <workItem from=\"1741697652438\" duration=\"745000\" />\r\n      <workItem from=\"1741782362842\" duration=\"5201000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/.idea/workspace.xml	(date 1741795549497)
+@@ -5,13 +5,13 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -100,7 +100,7 @@
+       <workItem from="1741426922108" duration="8197000" />
+       <workItem from="1741453279771" duration="13576000" />
+       <workItem from="1741697652438" duration="745000" />
+-      <workItem from="1741782362842" duration="5201000" />
++      <workItem from="1741782362842" duration="11629000" />
+     </task>
+     <servers />
+   </component>
+Index: src/main/java/itmo/blps/lab1/entity/Product.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package itmo.blps.lab1.entity;\r\n\r\nimport jakarta.persistence.*;\r\nimport lombok.*;\r\nimport org.hibernate.annotations.CreationTimestamp;\r\nimport org.hibernate.annotations.UpdateTimestamp;\r\n\r\nimport java.math.BigDecimal;\r\nimport java.time.LocalDateTime;\r\nimport java.util.UUID;\r\n\r\n@Entity\r\n@Table(name = \"products\")\r\n@Getter\r\n@Setter\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\n@Builder\r\npublic class Product {\r\n\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.AUTO)\r\n    private UUID id;\r\n\r\n    @Column(nullable = false, length = 255)\r\n    private String name;\r\n\r\n    @Column(length = 1000)\r\n    private String description;\r\n\r\n    @Column(nullable = false)\r\n    private BigDecimal price;\r\n\r\n    @Column(nullable = false)\r\n    private Integer stock;\r\n\r\n    @ManyToOne\r\n    @JoinColumn(name = \"category_id\", nullable = false)\r\n    private Category category;\r\n\r\n    @CreationTimestamp\r\n    @Column(nullable = false, updatable = false)\r\n    private LocalDateTime createdAt;\r\n\r\n    @UpdateTimestamp\r\n    @Column(nullable = false)\r\n    private LocalDateTime updatedAt;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/itmo/blps/lab1/entity/Product.java b/src/main/java/itmo/blps/lab1/entity/Product.java
+--- a/src/main/java/itmo/blps/lab1/entity/Product.java	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/src/main/java/itmo/blps/lab1/entity/Product.java	(date 1741794017904)
+@@ -1,6 +1,7 @@
+ package itmo.blps.lab1.entity;
+ 
+ import jakarta.persistence.*;
++import jakarta.validation.constraints.Min;
+ import lombok.*;
+ import org.hibernate.annotations.CreationTimestamp;
+ import org.hibernate.annotations.UpdateTimestamp;
+@@ -29,6 +30,7 @@
+     private String description;
+ 
+     @Column(nullable = false)
++    @Min(1)
+     private BigDecimal price;
+ 
+     @Column(nullable = false)
+Index: src/main/java/itmo/blps/lab1/entity/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package itmo.blps.lab1.entity;\r\n\r\nimport jakarta.persistence.*;\r\nimport jakarta.validation.constraints.Size;\r\nimport lombok.AllArgsConstructor;\r\nimport lombok.Getter;\r\nimport lombok.RequiredArgsConstructor;\r\nimport lombok.Setter;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.UUID;\r\n\r\n@Getter\r\n@Setter\r\n@RequiredArgsConstructor\r\n@Entity\r\n@Table(name = \"user_\")\r\npublic class User {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.AUTO)\r\n    private UUID id;\r\n\r\n    @Column(nullable = false, unique = true)\r\n    private String email;\r\n\r\n    @Size(min=5)\r\n    private String name;\r\n\r\n    @Size(min=5)\r\n    private String password;\r\n\r\n    @Column(nullable = false, unique = true, length = 11)\r\n    private String phoneNumber;\r\n\r\n    @Enumerated(EnumType.STRING)\r\n    @Column(nullable = false)\r\n    private Role role;\r\n\r\n    public enum Role {\r\n        USER,\r\n        ADMIN\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/itmo/blps/lab1/entity/User.java b/src/main/java/itmo/blps/lab1/entity/User.java
+--- a/src/main/java/itmo/blps/lab1/entity/User.java	(revision 45c042e159507cac0b4e15447ba8fc662c32cc80)
++++ b/src/main/java/itmo/blps/lab1/entity/User.java	(date 1741793954761)
+@@ -1,12 +1,14 @@
+ package itmo.blps.lab1.entity;
+ 
+ import jakarta.persistence.*;
++import jakarta.validation.constraints.Email;
++import jakarta.validation.constraints.Pattern;
+ import jakarta.validation.constraints.Size;
+ import lombok.AllArgsConstructor;
+ import lombok.Getter;
+ import lombok.RequiredArgsConstructor;
+ import lombok.Setter;
+-
++import jakarta.validation.*;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.UUID;
+@@ -22,15 +24,20 @@
+     private UUID id;
+ 
+     @Column(nullable = false, unique = true)
++    @Email(message = "Email should be valid")
+     private String email;
+ 
+     @Size(min=5)
++    @Size(min = 5, message = "Name must be at least 5 characters")
++    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Name can only contain letters and spaces")
+     private String name;
+ 
+     @Size(min=5)
+     private String password;
+ 
+     @Column(nullable = false, unique = true, length = 11)
++    @Size(min = 11, max = 11, message = "Phone number must be 11 digits")
++    @Pattern(regexp = "^[0-9]+$", message = "Phone number can only contain digits")
+     private String phoneNumber;
+ 
+     @Enumerated(EnumType.STRING)

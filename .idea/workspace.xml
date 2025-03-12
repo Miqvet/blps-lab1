@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/DeliveryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/service/DeliveryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,7 @@
       <workItem from="1741426922108" duration="8197000" />
       <workItem from="1741453279771" duration="13576000" />
       <workItem from="1741697652438" duration="745000" />
-      <workItem from="1741782362842" duration="5201000" />
+      <workItem from="1741782362842" duration="11629000" />
     </task>
     <servers />
   </component>

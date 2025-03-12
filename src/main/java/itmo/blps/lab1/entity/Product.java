@@ -1,6 +1,7 @@
 package itmo.blps.lab1.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,6 +30,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
+    @Min(1)
     private BigDecimal price;
 
     @Column(nullable = false)
