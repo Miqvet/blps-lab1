@@ -51,7 +51,8 @@ public class SecurityConfig {
                                 "/api/categories/**"
                         ).authenticated()
                         .requestMatchers("/api/deliveries/{orderId}/start",
-                                "/api/deliveries/{orderId}/status"
+                                "/api/deliveries/{orderId}/status",
+                                "/api/deliveries/waiting"
                         ).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 @Tag(name = "Доставка", description = "API для управления доставкой заказов")
 @RestController
@@ -21,6 +22,15 @@ import java.util.UUID;
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
+
+    @Operation(summary = "Получить все заказы ожидающие доставки",
+            description = "Получает пул заказов которые в данный момент ожидают согласования доставки")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/waiting")
+    public ResponseEntity<List<OrderDTO>> getDeliveries() {
+        List<OrderDTO> deliveries = deliveryService.getDeliveries();
+        return ResponseEntity.ok(deliveries);
+    }
 
     @Operation(summary = "Начать доставку",
             description = "Запускает процесс доставки для указанного заказа.")
