@@ -4,14 +4,23 @@ package itmo.blps.lab1.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import itmo.blps.lab1.converters.UserConverter;
+import itmo.blps.lab1.dto.UserDTO;
 import itmo.blps.lab1.dto.request.AuthRequest;
 import itmo.blps.lab1.dto.request.RegisterRequest;
 import itmo.blps.lab1.dto.response.AuthResponse;
 import itmo.blps.lab1.entity.User;
 import itmo.blps.lab1.service.AuthService;
+import itmo.blps.lab1.util.Validator;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Tag(name = "Аутентификация", description = "API для регистрации и входа пользователей")
 @RestController
@@ -24,11 +33,14 @@ public class AuthController {
     @Operation(summary = "Регистрация пользователя",
             description = "Создает нового пользователя на основе переданных данных.")
     @PostMapping("/register")
-    public ResponseEntity<User> register(
+    public ResponseEntity<?> register(
             @Parameter(description = "Данные для регистрации пользователя", required = true)
-            @RequestBody RegisterRequest request) {
-
-        return ResponseEntity.ok(authService.registerUser(request));
+            @Valid @RequestBody RegisterRequest request,
+            BindingResult bindingResult) {
+        if (Validator.isValidPerson(request)){
+            return ResponseEntity.ok(UserConverter.toDTO(authService.registerUser(request)));
+        }
+        return new ResponseEntity<>("Проверьте корректность полей", HttpStatus.BAD_REQUEST);
     }
 
     @Operation(summary = "Вход пользователя",
@@ -36,7 +48,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
             @Parameter(description = "Данные для входа пользователя", required = true)
-            @RequestBody AuthRequest request) {
+            @Valid @RequestBody AuthRequest request) {
 
         String token = authService.authenticateUser(request);
         return ResponseEntity.ok(new AuthResponse(token, "Success"));
