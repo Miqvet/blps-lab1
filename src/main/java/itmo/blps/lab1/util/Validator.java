@@ -41,10 +41,19 @@ public final class Validator {
         }
         return phoneNumber.matches("^\\+?7\\d{10}$");
     }
-    public static boolean isValidPerson(RegisterRequest registerRequest){
-        return isValidEmail(registerRequest.getEmail()) &&
-                isValidName(registerRequest.getName()) &&
-                isValidPassword(registerRequest.getPassword()) &&
-                isValidPhoneNumber(registerRequest.getPhoneNumber());
+    public static String isValidPerson(RegisterRequest registerRequest){
+        if (!isValidEmail(registerRequest.getEmail())){
+            return "Имеил должен соответствовать международному стандарту";
+        }
+        if(!isValidName(registerRequest.getName())){
+            return "Имя должно быть адекватным";
+        }
+        if(!isValidPassword(registerRequest.getPassword())){
+            return "Пароль должен быть адекватным";
+        }
+        if(!isValidPhoneNumber(registerRequest.getPhoneNumber())){
+            return "введите номер в формате российского региона";
+        }
+        return "";
     }
 }

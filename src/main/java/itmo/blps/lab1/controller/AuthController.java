@@ -37,10 +37,11 @@ public class AuthController {
             @Parameter(description = "Данные для регистрации пользователя", required = true)
             @Valid @RequestBody RegisterRequest request,
             BindingResult bindingResult) {
-        if (Validator.isValidPerson(request)){
+        String errors = Validator.isValidPerson(request);
+        if (errors.isEmpty()){
             return ResponseEntity.ok(UserConverter.toDTO(authService.registerUser(request)));
         }
-        return new ResponseEntity<>("Проверьте корректность полей", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
     @Operation(summary = "Вход пользователя",
