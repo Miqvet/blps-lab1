@@ -33,7 +33,7 @@ public class ProductController {
 
     @Operation(summary = "Добавить товар",
             description = "Создает новый товар на основе переданных данных.")
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<ProductDTO> addProducts(
             @RequestBody CreateProductRequest createProductRequest) {
 

@@ -34,7 +34,7 @@ public class CartController {
 
     @Operation(summary = "Добавить товар в корзину",
             description = "Добавляет указанный товар в корзину пользователя по заданному количеству.")
-    @PostMapping("/{userId}/add")
+    @PostMapping("/{userId}")
     public ResponseEntity<CartDTO> addToCart(
             @Parameter(description = "UUID пользователя, которому будет добавлен товар", required = true)
             @PathVariable UUID userId,
