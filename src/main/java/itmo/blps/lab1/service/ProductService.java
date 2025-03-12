@@ -8,6 +8,7 @@ import itmo.blps.lab1.entity.Product;
 import itmo.blps.lab1.repository.CategoryRepository;
 import itmo.blps.lab1.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,6 +24,10 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable).getContent();
     }
 
     public Product addProduct(CreateProductRequest createProductRequest){
