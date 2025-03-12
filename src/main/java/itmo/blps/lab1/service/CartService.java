@@ -8,18 +8,19 @@ import itmo.blps.lab1.repository.CartRepository;
 import itmo.blps.lab1.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.UUID;
 
 @Service
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
     private final UserService userService;
 
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, UserService userService) {
+    public CartService(CartRepository cartRepository, ProductService productService, UserService userService) {
         this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
+        this.productService = productService;
         this.userService = userService;
     }
 
@@ -32,10 +33,14 @@ public class CartService {
         });
     }
 
+    public void delete(Cart entity) {
+        cartRepository.delete(entity);
+    }
+
     @Transactional
     public Cart addToCart(UUID userId, UUID productId, int quantity) {
         Cart cart = getCartByUserId(userId);
-        Product product = productRepository.findById(productId)
+        Product product = productService.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         if (product.getStock() < quantity) {

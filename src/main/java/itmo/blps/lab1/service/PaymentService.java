@@ -12,17 +12,16 @@ import java.util.UUID;
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
-    public PaymentService(PaymentRepository paymentRepository, OrderRepository orderRepository) {
+    public PaymentService(PaymentRepository paymentRepository, OrderService orderService) {
         this.paymentRepository = paymentRepository;
-        this.orderRepository = orderRepository;
+        this.orderService = orderService;
     }
 
     @Transactional
     public Payment processPayment(UUID orderId, Payment.PaymentMethod method) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+        Order order = orderService.findById(orderId);
 
         if (!order.getStatus().equals(Order.OrderStatus.PENDING)) {
             throw new RuntimeException("Order is not available for payment");
@@ -36,7 +35,7 @@ public class PaymentService {
 
         order.setStatus(Order.OrderStatus.PAID);
         paymentRepository.save(payment);
-        orderRepository.save(order);
+        orderService.save(order);
 
         return payment;
     }
@@ -46,6 +45,5 @@ public class PaymentService {
         return paymentRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new RuntimeException("Payment not found"));
     }
-
 }
 

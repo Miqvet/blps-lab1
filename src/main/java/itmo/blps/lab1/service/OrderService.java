@@ -16,12 +16,10 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final CartService cartService;
-    private final CartRepository cartRepository;
 
     public OrderService(OrderRepository orderRepository, CartService cartService, CartRepository cartRepository) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
-        this.cartRepository = cartRepository;
     }
 
     @Transactional
@@ -43,7 +41,7 @@ public class OrderService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
 
         orderRepository.save(order);
-        cartRepository.delete(cart); // Очистка корзины после оформления заказа
+        cartService.delete(cart); // Очистка корзины после оформления заказа
         return order;
     }
 
@@ -57,5 +55,17 @@ public class OrderService {
     // Получить заказы пользователя
     public List<Order> getUserOrders(UUID userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    public List<Order> findByStatus(Order.OrderStatus status) {
+        return orderRepository.findByStatus(status);
+    }
+
+    public Order findById(UUID orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+    }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 }

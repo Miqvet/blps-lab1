@@ -10,6 +10,7 @@ import itmo.blps.lab1.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -22,6 +23,10 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
+    public Optional<Product> findById(UUID id) {
+        return productRepository.findById(id);
+    }
+
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -30,7 +35,7 @@ public class ProductService {
         return productRepository.findAll(pageable).getContent();
     }
 
-    public Product addProduct(CreateProductRequest createProductRequest){
+    public Product addProduct(CreateProductRequest createProductRequest) {
         Category category = categoryRepository.findByName(createProductRequest.getCategoryName().toLowerCase()).orElseThrow(()
                 -> new NoSuchElementException("Такой категории нет"));
         Product product = new Product();
