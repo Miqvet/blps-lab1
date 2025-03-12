@@ -12,7 +12,6 @@ public class ProductConverter {
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
-        dto.setStock(product.getStock());
         dto.setCategoryName(product.getCategory().getName());
         return dto;
     }
@@ -23,7 +22,6 @@ public class ProductConverter {
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
-        product.setStock(dto.getStock());
         // Category should be set using a service or converter
         product.setCategory(category);
         return product;
