@@ -21,7 +21,7 @@ public class CategoryService {
     }
     public Category create(String name) {
         Category category = new Category();
-        category.setName(name);
+        category.setName(name.toLowerCase());
         return categoryRepository.save(category);
     }
 }
