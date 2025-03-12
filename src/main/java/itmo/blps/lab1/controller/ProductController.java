@@ -48,8 +48,11 @@ public class ProductController {
     @PostMapping()
     public ResponseEntity<ProductDTO> addProducts(
             @RequestBody CreateProductRequest createProductRequest) {
-        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) > 0){
+        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) < 0){
             throw new RuntimeException("Цена должна быть больше 0");
+        }
+        if(createProductRequest.getStock() < 0){
+            throw new RuntimeException("Кол-во должно быть больше 0");
         }
         return ResponseEntity.ok(ProductConverter.toDTO(productService.addProduct(createProductRequest)));
     }
