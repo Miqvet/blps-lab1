@@ -29,6 +29,7 @@ public class ProductService {
         Category category = categoryRepository.findByName(createProductRequest.getCategoryName()).orElseThrow(()
                 -> new NoSuchElementException("Такой категории нет"));
         Product product = new Product();
+        product.setStock(createProductRequest.getStock());
         product.setPrice(createProductRequest.getPrice());
         product.setDescription(createProductRequest.getDescription());
         product.setName(createProductRequest.getName());

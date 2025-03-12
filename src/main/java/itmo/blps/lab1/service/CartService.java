@@ -38,6 +38,10 @@ public class CartService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
+        if (product.getStock() < quantity) {
+            throw new RuntimeException("Not enough stock");
+        }
+
         cart.getItems().add(new CartItem(null, cart, product, quantity));
         return cartRepository.save(cart);
     }

@@ -31,6 +31,9 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(nullable = false)
+    private Integer stock;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
