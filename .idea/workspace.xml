@@ -5,9 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240/storage_v2/_src_/database/card-controller.ecrS3g/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240/storage_v2/_src_/database/card-controller.ecrS3g/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_18_27_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_18_27__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_19_06_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2025_19_06__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/config/JwtAuthFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/util/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/util/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/CartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/CartDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/CartItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/CartItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/OrderItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/PaymentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/AuthRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/AuthRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/CreateProductRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/CreateProductRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/dto/request/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/itmo/blps/lab1/util/Validator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +124,9 @@
       <workItem from="1741426922108" duration="8197000" />
       <workItem from="1741453279771" duration="13576000" />
       <workItem from="1741697652438" duration="745000" />
-      <workItem from="1741782362842" duration="13046000" />
+      <workItem from="1741782362842" duration="14848000" />
+      <workItem from="1742042849896" duration="6315000" />
+      <workItem from="1742624209184" duration="1960000" />
     </task>
     <servers />
   </component>

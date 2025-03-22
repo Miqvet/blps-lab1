@@ -7,6 +7,7 @@ import itmo.blps.lab1.converters.ProductConverter;
 import itmo.blps.lab1.dto.ProductDTO;
 import itmo.blps.lab1.dto.request.CreateProductRequest;
 import itmo.blps.lab1.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -47,13 +48,13 @@ public class ProductController {
             description = "Создает новый товар на основе переданных данных.")
     @PostMapping()
     public ResponseEntity<ProductDTO> addProducts(
-            @RequestBody CreateProductRequest createProductRequest) {
-        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) < 0){
-            throw new RuntimeException("Цена должна быть больше 0");
-        }
-        if(createProductRequest.getStock() < 0){
-            throw new RuntimeException("Кол-во должно быть больше 0");
-        }
+            @Valid @RequestBody CreateProductRequest createProductRequest) {
+//        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) < 0){
+//            throw new RuntimeException("Цена должна быть больше 0");
+//        }
+//        if(createProductRequest.getStock() < 0){
+//            throw new RuntimeException("Кол-во должно быть больше 0");
+//        }
         return ResponseEntity.ok(ProductConverter.toDTO(productService.addProduct(createProductRequest)));
     }
 }

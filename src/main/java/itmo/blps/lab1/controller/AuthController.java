@@ -5,15 +5,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.blps.lab1.converters.UserConverter;
-import itmo.blps.lab1.dto.UserDTO;
 import itmo.blps.lab1.dto.request.AuthRequest;
 import itmo.blps.lab1.dto.request.RegisterRequest;
 import itmo.blps.lab1.dto.response.AuthResponse;
-import itmo.blps.lab1.entity.User;
 import itmo.blps.lab1.service.AuthService;
-import itmo.blps.lab1.util.Validator;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -37,19 +35,23 @@ public class AuthController {
             @Parameter(description = "Данные для регистрации пользователя", required = true)
             @Valid @RequestBody RegisterRequest request,
             BindingResult bindingResult) {
-        String errors = Validator.isValidPerson(request);
-        if (errors.isEmpty()){
-            return ResponseEntity.ok(UserConverter.toDTO(authService.registerUser(request)));
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok(UserConverter.toDTO(authService.registerUser(request)));
     }
 
     @Operation(summary = "Вход пользователя",
             description = "Аутентифицирует пользователя по предоставленным учетным данным.")
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(
+    public ResponseEntity<?> login(
             @Parameter(description = "Данные для входа пользователя", required = true)
-            @Valid @RequestBody AuthRequest request) {
+            @Valid @RequestBody AuthRequest request,
+            BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList(), HttpStatus.BAD_REQUEST);
+        }
 
         String token = authService.authenticateUser(request);
         return ResponseEntity.ok(new AuthResponse(token, "Success"));

@@ -1,6 +1,7 @@
 package itmo.blps.lab1.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -30,6 +31,7 @@ public class OrderItem {
     private Product product;
 
     @Column(nullable = false)
+    @Min(value = 1, message = "Количество товара не может быть меньше 1")
     private Integer quantity;
 
     @Column(nullable = false)

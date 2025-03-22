@@ -2,6 +2,7 @@ package itmo.blps.lab1.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,21 +24,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email обязателен")
+    @Email(message = "Некорректный формат email")
     private String email;
 
-    @Size(min=5)
-    @Size(min = 5, message = "Name must be at least 5 characters")
-    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Name can only contain letters and spaces")
+    @NotBlank(message = "Имя обязательно")
+    @Size(min = 5, message = "Имя должно быть не менее 5 символов")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я ]+$", message = "Имя может содержать только буквы и пробелы")
     private String name;
 
-    @Size(min=5)
+    @NotBlank(message = "Пароль обязателен")
+    @Size(min = 8, message = "Пароль должен быть не менее 8 символов")
+    @Pattern(
+            regexp = "^(?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$",
+            message = "Пароль должен содержать хотя бы одну цифру, заглавную и строчную букву"
+    )
     private String password;
 
-    @Column(nullable = false, unique = true, length = 11)
-    @Size(min = 11, max = 11, message = "Phone number must be 11 digits")
-    @Pattern(regexp = "^[0-9]+$", message = "Phone number can only contain digits")
+    @NotBlank(message = "Номер телефона обязателен")
+    @Pattern(regexp = "7\\d{10}$",
+            message = "Номер должен быть в формате 7XXXXXXXXXX")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

@@ -3,6 +3,8 @@ package itmo.blps.lab1.entity;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,6 +35,7 @@ public class Order {
     private List<OrderItem> items = new ArrayList<>();
 
     @Column(nullable = false)
+    @Min(value = 1)
     private BigDecimal totalPrice;
 
     @Enumerated(EnumType.STRING)
@@ -40,6 +43,7 @@ public class Order {
     private OrderStatus status;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я0-9. ]+$", message = "Адрес доставки должен состоять из цифр, букв, пробелов и точек")
     private String deliveryAddress;
 
     @Column(nullable = false)

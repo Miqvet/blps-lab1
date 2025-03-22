@@ -1,14 +1,9 @@
 package itmo.blps.lab1.dto;
 
-import itmo.blps.lab1.entity.Payment;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
-@Setter
 @Data
 public class PaymentDTO {
     private UUID id;

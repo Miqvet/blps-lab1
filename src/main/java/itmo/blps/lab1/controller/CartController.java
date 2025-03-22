@@ -8,6 +8,8 @@ import itmo.blps.lab1.dto.CartDTO;
 import itmo.blps.lab1.entity.Cart;
 import itmo.blps.lab1.service.CartService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +37,7 @@ public class CartController {
     @Operation(summary = "Добавить товар в корзину",
             description = "Добавляет указанный товар в корзину пользователя по заданному количеству.")
     @PostMapping("/{userId}")
-    public ResponseEntity<CartDTO> addToCart(
+    public ResponseEntity<?> addToCart(
             @Parameter(description = "UUID пользователя, которому будет добавлен товар", required = true)
             @PathVariable UUID userId,
             @Parameter(description = "UUID товара, который нужно добавить", required = true)
@@ -43,6 +45,9 @@ public class CartController {
             @Parameter(description = "Количество товара, которое нужно добавить", required = true)
             @RequestParam Integer quantity) {
 
+        if(quantity < 1){
+            return  new ResponseEntity<>("Количество должно быть числом больше или равным 1", HttpStatus.BAD_REQUEST);
+        }
         Cart cart = cartService.addToCart(userId, productId, quantity);
         return ResponseEntity.ok(CartConverter.toDTO(cart));
     }

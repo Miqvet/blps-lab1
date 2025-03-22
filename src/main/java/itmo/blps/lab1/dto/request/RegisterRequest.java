@@ -27,7 +27,7 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank(message = "Номер телефона обязателен")
-    @Pattern(regexp = "^\\+?7\\d{10}$",
-            message = "Номер должен быть в формате +7XXXXXXXXXX или 7XXXXXXXXXX")
+    @Pattern(regexp = "7\\d{10}$",
+            message = "Номер должен быть в формате 7XXXXXXXXXX")
     private String phoneNumber;
 }
