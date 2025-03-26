@@ -27,6 +27,7 @@ public class OrderService {
         this.productService = productService;
     }
 
+    @Transactional
     public Order placeOrder(UUID userId, String address) {
         logger.info("Initiating order placement for user ID: {}", userId);
 
