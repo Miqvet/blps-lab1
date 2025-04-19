@@ -4,9 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.blps.lab1.converters.OrderConverter;
+import itmo.blps.lab1.converters.PaymentConverter;
 import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
+import itmo.blps.lab1.entity.Payment;
+import itmo.blps.lab1.service.OrderPaymentFacade;
 import itmo.blps.lab1.service.OrderService;
+import itmo.blps.lab1.service.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +28,18 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderPaymentFacade orderPaymentFacade;
 
     @Operation(summary = "Оформить заказ",
-            description = "Создает новый заказ для указанного пользователя.")
+            description = "Создает новый заказ для указанного пользователя и обрабатывает платеж")
     @PostMapping("")
     public ResponseEntity<?> checkout(
             @Parameter(description = "ID пользователя", required = true)
             @RequestParam UUID userId,
             @Parameter(description = "Адрес доставки", required = true)
-            @RequestParam String deliveryAddress) {
+            @RequestParam String deliveryAddress,
+            @Parameter(description = "Метод оплаты", required = true)
+            @RequestParam Payment.PaymentMethod method) {
         String regex = "^[a-zA-Zа-яА-Я0-9 .]+$";
         Pattern pattern = Pattern.compile(regex);
 
@@ -40,8 +47,12 @@ public class OrderController {
             return new ResponseEntity<>("Адрес доставки должен состоять из цифр, букв, пробелов и точек", HttpStatus.BAD_REQUEST);
         }
 
-        Order order = orderService.placeOrder(userId, deliveryAddress);
-        return ResponseEntity.ok(OrderConverter.toDTO(order));
+        Payment payment = orderPaymentFacade.placeOrderAndProcessPayment(
+                userId,
+                deliveryAddress,
+                method
+        );
+        return ResponseEntity.ok(PaymentConverter.toDTO(payment));
     }
 
     @Operation(summary = "Получить заказы пользователя",

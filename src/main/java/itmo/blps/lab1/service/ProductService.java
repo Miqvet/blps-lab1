@@ -5,6 +5,7 @@ import itmo.blps.lab1.dto.ProductDTO;
 import itmo.blps.lab1.dto.request.CreateProductRequest;
 import itmo.blps.lab1.entity.Category;
 import itmo.blps.lab1.entity.Product;
+import itmo.blps.lab1.exception.classes.ProductNotFoundException;
 import itmo.blps.lab1.repository.CategoryRepository;
 import itmo.blps.lab1.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -60,6 +61,23 @@ public class ProductService {
 
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+
+    public Product updateProduct(Product product) {
+        if (product.getId() == null) {
+            throw new IllegalArgumentException("Product ID cannot be null for update");
+        }
+
+        if (!productRepository.existsById(product.getId())) {
+            throw new ProductNotFoundException(product.getId());
+        }
+
+        return productRepository.save(product);
+    }
+
+    public boolean decreaseProductStock(UUID productId, int quantity) {
+        int updatedRows = productRepository.decreaseStock(productId, quantity);
+        return updatedRows > 0;
     }
 }
 

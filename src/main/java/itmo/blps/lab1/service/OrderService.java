@@ -1,16 +1,20 @@
 package itmo.blps.lab1.service;
 
 import itmo.blps.lab1.entity.*;
+import itmo.blps.lab1.exception.classes.EmptyCartException;
+import itmo.blps.lab1.exception.classes.InsufficientStockException;
+import itmo.blps.lab1.exception.classes.OrderNotFoundException;
+import itmo.blps.lab1.exception.classes.ProductNotFoundException;
 import itmo.blps.lab1.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -20,56 +24,79 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartService cartService;
     private final ProductService productService;
+    private final TransactionTemplate transactionTemplate;
 
-    public OrderService(OrderRepository orderRepository, CartService cartService, ProductService productService) {
+    public OrderService(OrderRepository orderRepository,
+                        CartService cartService,
+                        ProductService productService,
+                        TransactionTemplate transactionTemplate) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.productService = productService;
+        this.transactionTemplate = transactionTemplate;
     }
 
-    @Transactional
-    public Order placeOrder(UUID userId, String address) {
-        logger.info("Initiating order placement for user ID: {}", userId);
-
-        Cart cart = cartService.getCartByUserId(userId);
-
-        if (cart.getItems().isEmpty()) {
-            logger.error("Cart is empty for user ID: {}", userId);
-            throw new RuntimeException("Cart is empty");
-        }
-
-        Order order = new Order();
-        order.setUser(cart.getUser());
-        order.setStatus(Order.OrderStatus.PENDING);
-        order.setDeliveryAddress(address);
-
-        order.setItems(cart.getItems().stream().map(cartItem -> {
-            Product product = cartItem.getProduct();
-            if (product.getStock() < cartItem.getQuantity()) {
-                String errorMsg = "Product " + product.getId() + " is out of stock.";
-                logger.error(errorMsg);
-                throw new RuntimeException(errorMsg);
+    public Order createOrder(UUID userId, String address) {
+        try {
+            // 1. Проверяем корзину
+            Cart cart = cartService.getCartByUserId(userId);
+            if (cart.getItems().isEmpty()) {
+                throw new EmptyCartException(userId);
             }
-            product.setStock(product.getStock() - cartItem.getQuantity());
-            productService.save(product); // Обновление запаса
-            return new OrderItem(null, order, product, cartItem.getQuantity(), product.getPrice());
-        }).collect(Collectors.toList()));
 
-        order.setTotalPrice(cart.getItems().stream()
-                .map(t -> t.getProduct().getPrice().multiply(BigDecimal.valueOf(t.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+            // 2. Создаём заказ
+            Order order = new Order();
+            order.setUser(cart.getUser());
+            order.setStatus(Order.OrderStatus.PENDING);
+            order.setDeliveryAddress(address);
 
-        orderRepository.save(order);
-        cartService.delete(cart); // Очистка корзины после оформления заказа
-        logger.info("Order placed successfully for user ID: {}", userId);
-        return order;
+            // 3. Резервируем товары атомарно
+            List<OrderItem> orderItems = new ArrayList<>();
+            for (CartItem cartItem : cart.getItems()) {
+                UUID productId = cartItem.getProduct().getId();
+                int quantity = cartItem.getQuantity();
+
+                boolean success = productService.decreaseProductStock(productId, quantity);
+                if (!success) {
+                    throw new InsufficientStockException(productId, cartItem.getProduct().getStock(), quantity);
+                }
+
+                Product product = productService.getProductById(productId)
+                        .orElseThrow(() -> new ProductNotFoundException(productId));
+
+                orderItems.add(new OrderItem(
+                        null, order, product,
+                        quantity, product.getPrice()
+                ));
+            }
+
+            order.setItems(orderItems);
+            order.setTotalPrice(calculateTotal(cart));
+
+            // 4. Сохраняем заказ и очищаем корзину
+            Order savedOrder = orderRepository.save(order);
+            cartService.delete(cart);
+            return savedOrder;
+        } catch (EmptyCartException | InsufficientStockException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException("Failed to create order", ex);
+        }
     }
 
-    public void cancelOrder(UUID orderId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-        order.setStatus(Order.OrderStatus.CANCELED);
-        orderRepository.save(order);
+    public Object cancelOrder(UUID orderId) {
+        return transactionTemplate.execute(status -> {
+            try {
+                Order order = findOrderOrThrow(orderId);
+                order.setStatus(Order.OrderStatus.CANCELED);
+                orderRepository.save(order);
+                logger.info("Order {} canceled successfully", orderId);
+            } catch (Exception ex) {
+                status.setRollbackOnly();
+                throw new RuntimeException("Failed to cancel order: " + ex.getMessage(), ex);
+            }
+            return null;
+        });
     }
 
     // Получить заказы пользователя
@@ -87,5 +114,28 @@ public class OrderService {
 
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+
+    public Order updateOrder(Order order) {
+        if (order.getId() == null) {
+            throw new IllegalArgumentException("Order ID cannot be null for update");
+        }
+
+        if (!orderRepository.existsById(order.getId())) {
+            throw new OrderNotFoundException(order.getId());
+        }
+
+        return orderRepository.save(order);
+    }
+
+    private BigDecimal calculateTotal(Cart cart) {
+        return cart.getItems().stream()
+                .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private Order findOrderOrThrow(UUID orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 }

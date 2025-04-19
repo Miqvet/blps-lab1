@@ -32,21 +32,5 @@ public class PaymentController {
         return payment != null ? ResponseEntity.ok(PaymentConverter.toDTO(payment)) : ResponseEntity.notFound().build();
     }
 
-    @Operation(summary = "Обработка платежа",
-            description = "Обрабатывает платеж для указанного заказа с заданным методом оплаты.")
-    @PostMapping("/{orderId}")
-    public ResponseEntity<String> processPayment(
-            @Parameter(description = "ID заказа", required = true)
-            @PathVariable UUID orderId,
-            @Parameter(description = "Метод оплаты", required = true)
-            @RequestParam Payment.PaymentMethod method) {
-
-        try {
-            Payment payment = paymentService.processPayment(orderId, method);
-            return ResponseEntity.ok("Payment successful. Transaction ID: " + payment.getTransactionId());
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Payment failed: " + e.getMessage());
-        }
-    }
 }
 

@@ -15,6 +15,7 @@ import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,9 +24,11 @@ import java.util.UUID;
 public class DeliveryService {
 
     private final OrderService orderService;
+    private final TransactionTemplate transactionTemplate;
 
-    public DeliveryService(OrderService orderService) {
+    public DeliveryService(OrderService orderService, TransactionTemplate transactionTemplate) {
         this.orderService = orderService;
+        this.transactionTemplate = transactionTemplate;
     }
 
     @Transactional

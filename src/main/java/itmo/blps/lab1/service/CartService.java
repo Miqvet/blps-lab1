@@ -38,6 +38,12 @@ public class CartService {
     }
 
     @Transactional
+    public void delete(UUID userId) {
+        Cart cart = getCartByUserId(userId);
+        cartRepository.delete(cart);
+    }
+
+    @Transactional
     public Cart addToCart(UUID userId, UUID productId, int quantity) {
         Cart cart = getCartByUserId(userId);
         Product product = productService.findById(productId)
