@@ -1,5 +1,6 @@
 package itmo.blps.lab1.service;
 
+import itmo.blps.lab1.dto.request.CreateProductRequest;
 import itmo.blps.lab1.entity.Category;
 import itmo.blps.lab1.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,8 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
     public Category getByName(String name) {
-        return categoryRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No Category found with name: " + name));
+        return categoryRepository.findByName(name).orElseThrow(()
+                -> new NoSuchElementException("Такой категории нет"));
     }
     public Category create(String name) {
         Category category = new Category();

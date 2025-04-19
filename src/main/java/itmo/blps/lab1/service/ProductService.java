@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id);
@@ -36,8 +36,7 @@ public class ProductService {
     }
 
     public Product addProduct(CreateProductRequest createProductRequest) {
-        Category category = categoryRepository.findByName(createProductRequest.getCategoryName().toLowerCase()).orElseThrow(()
-                -> new NoSuchElementException("Такой категории нет"));
+        Category category = categoryService.getByName(createProductRequest.getCategoryName().toLowerCase());
         Product product = new Product();
         product.setStock(createProductRequest.getStock());
         product.setPrice(createProductRequest.getPrice());
