@@ -5,7 +5,7 @@ import itmo.blps.lab1.entity.CartItem;
 import itmo.blps.lab1.entity.User;
 import itmo.blps.lab1.entity.Product;
 import itmo.blps.lab1.repository.CartRepository;
-import itmo.blps.lab1.repository.ProductRepository;
+import itmo.blps.lab1.service.auth.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.server.header.StrictTransportSecurityServerHttpHeadersWriter;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class ProductController {
     @Operation(summary = "Получить список товаров",
             description = "Возвращает список всех доступных товаров.")
     @GetMapping
+    @PreAuthorize("hasAuthority('PRODUCT_VIEW')")
     public ResponseEntity<List<ProductDTO>> getProducts(
             @Parameter(description = "Номер страницы", example = "0")
             @RequestParam(defaultValue = "0") int page,
@@ -47,6 +49,7 @@ public class ProductController {
     @Operation(summary = "Добавить товар",
             description = "Создает новый товар на основе переданных данных.")
     @PostMapping()
+    @PreAuthorize("hasAuthority('CREATE_PRODUCT')")
     public ResponseEntity<ProductDTO> addProducts(
             @Valid @RequestBody CreateProductRequest createProductRequest) {
 //        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) < 0){

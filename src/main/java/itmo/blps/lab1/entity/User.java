@@ -1,5 +1,7 @@
 package itmo.blps.lab1.entity;
 
+import itmo.blps.lab1.entity.enums.Privilege;
+import itmo.blps.lab1.entity.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +14,7 @@ import lombok.Setter;
 import jakarta.validation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -47,11 +50,9 @@ public class User {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
-    public enum Role {
-        USER,
-        ADMIN
+    public Set<Privilege> getPrivileges() {
+        return role.getPrivileges();
     }
 }

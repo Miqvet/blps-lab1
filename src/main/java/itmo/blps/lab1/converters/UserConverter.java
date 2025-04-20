@@ -2,6 +2,7 @@ package itmo.blps.lab1.converters;
 
 import itmo.blps.lab1.dto.UserDTO;
 import itmo.blps.lab1.entity.User;
+import itmo.blps.lab1.entity.enums.Role;
 
 public class UserConverter {
 
@@ -21,7 +22,7 @@ public class UserConverter {
         user.setEmail(dto.getEmail());
         user.setName(dto.getName());
         user.setPhoneNumber(dto.getPhoneNumber());
-        user.setRole(User.Role.valueOf(dto.getRole().name()));
+        user.setRole(Role.valueOf(dto.getRole().name()));
         return user;
     }
 }

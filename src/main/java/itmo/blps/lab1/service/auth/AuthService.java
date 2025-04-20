@@ -1,8 +1,9 @@
-package itmo.blps.lab1.service;
+package itmo.blps.lab1.service.auth;
 
 import itmo.blps.lab1.dto.request.AuthRequest;
 import itmo.blps.lab1.dto.request.RegisterRequest;
 import itmo.blps.lab1.entity.User;
+import itmo.blps.lab1.entity.enums.Role;
 import itmo.blps.lab1.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,7 +27,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setRole(User.Role.USER);
+        user.setRole(Role.USER);
         return userService.save(user);
     }
 

@@ -17,13 +17,14 @@ import java.util.List;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI api() {
         return new OpenAPI()
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT")))
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("basicScheme",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("basic")))
+                .addSecurityItem(new SecurityRequirement().addList("basicScheme"))
                 .info(new Info()
                         .title("Citilink API")
                         .version("1.0.0")
@@ -35,7 +36,6 @@ public class OpenApiConfig {
                         new Server()
                                 .url("http://localhost:8080")
                                 .description("Локальный сервер")
-                ))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+                ));
     }
 }

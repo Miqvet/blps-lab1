@@ -1,9 +1,16 @@
 package itmo.blps.lab1.config;
 
+import itmo.blps.lab1.repository.UserRepository;
 import itmo.blps.lab1.util.CustomUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.jaas.AuthorityGranter;
+import org.springframework.security.authentication.jaas.DefaultJaasAuthenticationProvider;
+import org.springframework.security.authentication.jaas.memory.InMemoryConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,50 +24,37 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.security.auth.login.AppConfigurationEntry;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final CustomUserDetailsService customUserDetailsService;
-    private final JwtAuthFilter jwtAuthFilter;
-
+    private final UserRepository userRepository;
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .userDetailsService(customUserDetailsService)
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .cors(withDefaults())
+                .httpBasic(withDefaults())
+                .authenticationProvider(jaasAuthenticationProvider(configuration()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(
                                 "/api/register",
                                 "/api/login",
-                                "/api/test",
-                                "/swagger-ui/**",       // Разрешить доступ к Swagger UI
-                                "/v3/api-docs/**",      // Разрешить доступ к OpenAPI документации
-                                "/swagger-resources/**", // Разрешить доступ к ресурсам Swagger
-                                "/webjars/**"           // Разрешить доступ к веб-ресурсам Swagger
-                        ).permitAll()
-                        .requestMatchers("/api/carts/**",
-                                "/api/deliveries/{orderId}/track",
-                                "/api/orders/**",
-                                "/api/products/**",
-                                "/api/payments/**",
-                                "/api/categories/**"
-                        ).authenticated()
-                        .requestMatchers("/api/deliveries/{orderId}/start",
-                                "/api/deliveries/{orderId}/status",
-                                "/api/deliveries/waiting"
-                        ).hasRole("ADMIN")
+                                "/api/test").permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
+                );
         return http.build();
     }
 
@@ -82,4 +76,22 @@ public class SecurityConfig {
         return source;
     }
 
+
+    @Bean
+    public InMemoryConfiguration configuration() {
+        AppConfigurationEntry configEntry = new AppConfigurationEntry(JaasLoginModule.class.getName(),
+                AppConfigurationEntry.LoginModuleControlFlag.REQUIRED,
+                Map.of("userRepository", userRepository));
+        var configurationEntries = new AppConfigurationEntry[]{configEntry};
+        return new InMemoryConfiguration(Map.of("SPRINGSECURITY", configurationEntries));
+    }
+
+    @Bean
+    @Qualifier
+    public AuthenticationProvider jaasAuthenticationProvider(javax.security.auth.login.Configuration configuration) {
+        var provider = new DefaultJaasAuthenticationProvider();
+        provider.setConfiguration(configuration);
+        provider.setAuthorityGranters(new AuthorityGranter[]{new JaasAuthorityGranter(userRepository)});
+        return provider;
+    }
 }

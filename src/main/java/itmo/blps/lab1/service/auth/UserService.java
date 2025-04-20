@@ -1,4 +1,4 @@
-package itmo.blps.lab1.service;
+package itmo.blps.lab1.service.auth;
 
 import itmo.blps.lab1.entity.User;
 import itmo.blps.lab1.repository.UserRepository;

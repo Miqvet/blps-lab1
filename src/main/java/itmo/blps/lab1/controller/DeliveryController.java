@@ -25,7 +25,7 @@ public class DeliveryController {
 
     @Operation(summary = "Получить все заказы ожидающие доставки",
             description = "Получает пул заказов которые в данный момент ожидают согласования доставки")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('WAITING_DELIVERIES')")
     @GetMapping("/waiting")
     public ResponseEntity<List<OrderDTO>> getDeliveries() {
         List<OrderDTO> deliveries = deliveryService.getDeliveries();
@@ -34,7 +34,7 @@ public class DeliveryController {
 
     @Operation(summary = "Начать доставку",
             description = "Запускает процесс доставки для указанного заказа.")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('START_DELIVERY')")
     @PostMapping("/{orderId}/start")
     public ResponseEntity<OrderDTO> startDelivery(
             @Parameter(description = "ID заказа", required = true)
@@ -46,7 +46,7 @@ public class DeliveryController {
 
     @Operation(summary = "Обновить статус доставки",
             description = "Обновляет статус доставки для указанного заказа.")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('DELIVERY_UPDATE_STATUS')")
     @PatchMapping("/{orderId}/status")
     public ResponseEntity<OrderDTO> updateDeliveryStatus(
             @Parameter(description = "ID заказа", required = true)
@@ -61,6 +61,7 @@ public class DeliveryController {
     @Operation(summary = "Отследить заказ",
             description = "Возвращает информацию о текущем статусе доставки указанного заказа.")
     @GetMapping("/{orderId}/track")
+    @PreAuthorize("hasAuthority('DELIVERY_TRACK')")
     public ResponseEntity<OrderDTO> trackOrder(
             @Parameter(description = "ID заказа", required = true)
             @PathVariable UUID orderId) {

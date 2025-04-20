@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class CartController {
     @Operation(summary = "Получить товары в корзине",
             description = "Возвращает корзину указанного пользователя по его ID.")
     @GetMapping("/{userId}")
+    @PreAuthorize("hasAuthority('CART_VIEW')")
     public ResponseEntity<CartDTO> getCart(
             @Parameter(description = "UUID пользователя, чью корзину нужно получить", required = true)
             @PathVariable UUID userId) {
@@ -37,6 +39,7 @@ public class CartController {
     @Operation(summary = "Добавить товар в корзину",
             description = "Добавляет указанный товар в корзину пользователя по заданному количеству.")
     @PostMapping("/{userId}")
+    @PreAuthorize("hasAuthority('CART_ADD_ITEM')")
     public ResponseEntity<?> addToCart(
             @Parameter(description = "UUID пользователя, которому будет добавлен товар", required = true)
             @PathVariable UUID userId,
