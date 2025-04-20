@@ -9,6 +9,7 @@ import itmo.blps.lab1.entity.Payment;
 import itmo.blps.lab1.service.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class PaymentController {
     @Operation(summary = "Получить статус платежа",
             description = "Возвращает статус платежа для указанного заказа.")
     @GetMapping("/{orderId}")
+    @PreAuthorize("hasAuthority('CHECK_PAYMENT')")
     public ResponseEntity<PaymentDTO> getPaymentStatus(
             @Parameter(description = "ID заказа", required = true)
             @PathVariable UUID orderId) {
