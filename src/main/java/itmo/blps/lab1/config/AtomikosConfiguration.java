@@ -89,8 +89,8 @@ public class AtomikosConfiguration {
 
     private Properties xaProperties() {
         Properties props = new Properties();
-        props.put("user", "s367385");
-        props.put("password", "ycPvbiN7oMeH50V0");
+        props.put("user", "user");
+        props.put("password", "password");
         props.put("serverName", "localhost");
         props.put("portNumber", "5432");
         props.put("databaseName", "studs");
