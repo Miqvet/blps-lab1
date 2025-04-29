@@ -29,7 +29,6 @@ public class OrderPaymentFacade {
             try {
                 // 1. Создаём заказ
                 Order order = orderService.createOrder(userId, address);
-
                 // 2. Обрабатываем платеж
                 Payment payment = paymentService.processPayment(order.getId(), method);
 

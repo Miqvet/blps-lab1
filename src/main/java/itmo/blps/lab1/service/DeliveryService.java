@@ -3,16 +3,6 @@ package itmo.blps.lab1.service;
 import itmo.blps.lab1.converters.OrderConverter;
 import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
-import itmo.blps.lab1.repository.OrderRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.UUID;
-
-import itmo.blps.lab1.converters.OrderConverter;
-import itmo.blps.lab1.dto.OrderDTO;
-import itmo.blps.lab1.entity.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -24,10 +14,13 @@ import java.util.UUID;
 public class DeliveryService {
 
     private final OrderService orderService;
+    private final DeliveryNotificationService notificationService;
+
     private final TransactionTemplate transactionTemplate;
 
-    public DeliveryService(OrderService orderService, TransactionTemplate transactionTemplate) {
+    public DeliveryService(OrderService orderService, DeliveryNotificationService notificationService, TransactionTemplate transactionTemplate) {
         this.orderService = orderService;
+        this.notificationService = notificationService;
         this.transactionTemplate = transactionTemplate;
     }
 
@@ -48,14 +41,23 @@ public class DeliveryService {
         }
 
         order.setStatus(Order.OrderStatus.SHIPPED);
-        return orderService.save(order);
+        Order savedOrder = orderService.save(order);
+
+        notificationService.notifyDeliveryStatus(
+                orderId,
+                Order.OrderStatus.SHIPPED
+        );
+
+        return savedOrder;
     }
 
     @Transactional
     public Order updateDeliveryStatus(UUID orderId, Order.OrderStatus status) {
         Order order = orderService.findById(orderId);
         order.setStatus(status);
-        return orderService.save(order);
+        Order savedOrder = orderService.save(order);
+        notificationService.notifyDeliveryStatus(orderId, status);
+        return savedOrder;
     }
 
     @Transactional(readOnly = true)
