@@ -1,31 +1,49 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: blps_db
+      POSTGRES_USER: blps_user
+      POSTGRES_PASSWORD: blps_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blps_user -d blps_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   activemq:
     image: rmohr/activemq
     ports:
-      - "61616:61616"   # JMS-порт
-      - "8161:8161"     # Веб-интерфейс (логин: admin/admin)
+      - "61616:61616"
+      - "8161:8161"
     environment:
-      - ACTIVEMQ_ADMIN_LOGIN=admin
-      - ACTIVEMQ_ADMIN_PASSWORD=admin
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
 
-  main-app:                  # Сервис-отправитель
-    build:
-      context: ./main
+  main-app:
+    build: ./main
     depends_on:
-      - activemq
+      postgres:
+        condition: service_healthy
+      activemq:
+        condition: service_started
     environment:
-      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+      SPRING_JPA_PROPERTIES_HIBERNATE_TRANSACTION_JTA_PLATFORM: com.atomikos.icatch.jta.hibernate4.AtomikosPlatform
+      SPRING_DATASOURCE_XA_SERVER_NAME: postgres
+      SPRING_DATASOURCE_XA_DATABASE_NAME: blps_db
+      SPRING_DATASOURCE_XA_USER: blps_user
+      SPRING_DATASOURCE_XA_PASSWORD: blps_password
+      SPRING_DATASOURCE_XA_PORT: "5432"
+      SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
     ports:
-      - "8080:8080"         # Порт основного приложения
+      - "8080:8080"
 
-  mail-service:             # Сервис-получатель
-    build:
-      context: ./mail
-    depends_on:
-      - activemq
-    environment:
-      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
-    ports:
-      - "8081:8080"         # Порт сервиса обработки писем
+volumes:
+  postgres_data:

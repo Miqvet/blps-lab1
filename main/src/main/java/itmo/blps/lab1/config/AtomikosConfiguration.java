@@ -63,6 +63,16 @@ public class AtomikosConfiguration {
         return dataSource;
     }
 
+    private Properties xaProperties() {
+        Properties props = new Properties();
+        props.put("user", System.getenv("SPRING_DATASOURCE_XA_USER"));
+        props.put("password", System.getenv("SPRING_DATASOURCE_XA_PASSWORD"));
+        props.put("serverName", System.getenv("SPRING_DATASOURCE_XA_SERVER_NAME"));
+        props.put("portNumber", System.getenv("SPRING_DATASOURCE_XA_PORT"));
+        props.put("databaseName", System.getenv("SPRING_DATASOURCE_XA_DATABASE_NAME"));
+        return props;
+    }
+
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
@@ -86,16 +96,6 @@ public class AtomikosConfiguration {
         return em;
     }
 
-    private Properties xaProperties() {
-        Properties props = new Properties();
-        props.put("user", "s367385");
-        props.put("password", "ycPvbiN7oMeH50V0");
-        props.put("serverName", "localhost");
-        props.put("portNumber", "5432");
-        props.put("databaseName", "studs");
-        return props;
-    }
-
     private Properties jpaProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.transaction.jta.platform", AtomikosJtaPlatform.class.getName());
@@ -110,3 +110,4 @@ public class AtomikosConfiguration {
         return new TransactionTemplate(transactionManager);
     }
 }
+
