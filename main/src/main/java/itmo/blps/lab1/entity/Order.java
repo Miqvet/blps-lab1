@@ -46,9 +46,9 @@ public class Order {
     @Pattern(regexp = "^[a-zA-Zа-яА-Я0-9. ]+$", message = "Адрес доставки должен состоять из цифр, букв, пробелов и точек")
     private String deliveryAddress;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = true)
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public enum OrderStatus {
         PENDING,

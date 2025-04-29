@@ -40,9 +40,10 @@ public class DeliveryService {
 
         notificationService.notifyDeliveryStatus(
                 createDeliveryServiceMessage(
+                        order.getUser().getEmail(),
                         orderId,
                         Order.OrderStatus.SHIPPED
-                )
+            )
         );
 
         return savedOrder;
@@ -53,7 +54,7 @@ public class DeliveryService {
         Order order = orderService.findById(orderId);
         order.setStatus(status);
         Order savedOrder = orderService.save(order);
-        notificationService.notifyDeliveryStatus(createDeliveryServiceMessage(orderId, status));
+        notificationService.notifyDeliveryStatus(createDeliveryServiceMessage(order.getUser().getEmail(), orderId, status));
         return savedOrder;
     }
 
@@ -63,10 +64,10 @@ public class DeliveryService {
     }
 
 
-    private DeliveryStatusMessage createDeliveryServiceMessage(UUID orderId, Order.OrderStatus status) {
+    private DeliveryStatusMessage createDeliveryServiceMessage(String email, UUID orderId, Order.OrderStatus status) {
         String message = generateStatusMessage(status);
         DeliveryStatusMessage statusMessage = new DeliveryStatusMessage(
-                orderId, status.name(), message, LocalDateTime.now()
+                email, orderId, status.name(), message, LocalDateTime.now()
         );
         return statusMessage;
     }

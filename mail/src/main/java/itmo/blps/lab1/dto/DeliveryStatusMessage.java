@@ -2,10 +2,14 @@ package itmo.blps.lab1.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Getter
 public class DeliveryStatusMessage {
+    private final String email;
     private final UUID orderId;
     private final String status;
     private final String message;
@@ -13,21 +17,17 @@ public class DeliveryStatusMessage {
 
     @JsonCreator
     public DeliveryStatusMessage(
+            @JsonProperty("email") String email,
             @JsonProperty("orderId") UUID orderId,
             @JsonProperty("status") String status,
             @JsonProperty("message") String message,
             @JsonProperty("timestamp") LocalDateTime timestamp) {
+        this.email = email;
         this.orderId = orderId;
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;
     }
-
-    // Геттеры
-    public UUID getOrderId() { return orderId; }
-    public String getStatus() { return status; }
-    public String getMessage() { return message; }
-    public LocalDateTime getTimestamp() { return timestamp; }
 
     @Override
     public String toString() {
