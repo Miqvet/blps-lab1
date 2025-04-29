@@ -8,7 +8,7 @@ import itmo.blps.lab1.converters.UserConverter;
 import itmo.blps.lab1.dto.request.AuthRequest;
 import itmo.blps.lab1.dto.request.RegisterRequest;
 import itmo.blps.lab1.dto.response.AuthResponse;
-import itmo.blps.lab1.service.auth.AuthService;
+import itmo.blps.lab1.mail.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

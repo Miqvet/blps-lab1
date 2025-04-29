@@ -1,6 +1,6 @@
-package itmo.blps.mail.listener;
+package itmo.blps.lab1.listener;
 
-import itmo.blps.mail.dto.DeliveryStatusMessage;
+import itmo.blps.lab1.dto.DeliveryStatusMessage;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

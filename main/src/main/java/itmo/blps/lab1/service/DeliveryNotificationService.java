@@ -1,12 +1,13 @@
-package itmo.blps.mail.service;
-import itmo.blps.mail.dto.DeliveryStatusMessage;
+package itmo.blps.lab1.service;
+
+import itmo.blps.lab1.dto.DeliveryStatusMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
- class DeliveryNotificationServiceImpl implements DeliveryNotificationService {
+class DeliveryNotificationService {
     private final JmsTemplate jmsTemplate;
 
 

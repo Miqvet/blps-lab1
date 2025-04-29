@@ -1,7 +1,8 @@
-package itmo.blps.mail.dto;
+package itmo.blps.lab1.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 

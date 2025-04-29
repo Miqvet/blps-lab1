@@ -8,7 +8,7 @@
         <artifactId>lab1</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>itmo.blps.mail</groupId>
+    <groupId>itmo.blps.lab1</groupId>
     <artifactId>mail</artifactId>
 
     <dependencies>

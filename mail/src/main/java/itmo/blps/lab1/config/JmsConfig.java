@@ -1,4 +1,4 @@
-package itmo.blps.mail.config;
+package itmo.blps.lab1.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

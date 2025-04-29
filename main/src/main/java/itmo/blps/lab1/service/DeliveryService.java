@@ -3,8 +3,7 @@ package itmo.blps.lab1.service;
 import itmo.blps.lab1.converters.OrderConverter;
 import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
-import itmo.blps.mail.dto.DeliveryStatusMessage;
-import itmo.blps.mail.service.DeliveryNotificationService;
+import itmo.blps.lab1.dto.DeliveryStatusMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +40,9 @@ public class DeliveryService {
 
         notificationService.notifyDeliveryStatus(
                 createDeliveryServiceMessage(
-                    orderId,
-                    Order.OrderStatus.SHIPPED
-            )
+                        orderId,
+                        Order.OrderStatus.SHIPPED
+                )
         );
 
         return savedOrder;
