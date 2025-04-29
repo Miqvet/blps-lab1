@@ -8,14 +8,17 @@ import itmo.blps.lab1.converters.UserConverter;
 import itmo.blps.lab1.dto.request.AuthRequest;
 import itmo.blps.lab1.dto.request.RegisterRequest;
 import itmo.blps.lab1.dto.response.AuthResponse;
-import itmo.blps.lab1.mail.service.auth.AuthService;
+import itmo.blps.lab1.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Аутентификация", description = "API для регистрации и входа пользователей")
 @RestController

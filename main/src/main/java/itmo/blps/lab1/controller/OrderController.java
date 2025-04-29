@@ -32,7 +32,7 @@ public class OrderController {
     @Operation(summary = "Оформить заказ",
             description = "Создает новый заказ для указанного пользователя и обрабатывает платеж")
     @PostMapping("")
-    //@PreAuthorize("hasAuthority('ORDER_CREATE')")
+    @PreAuthorize("hasAuthority('ORDER_CREATE')")
     public ResponseEntity<?> checkout(
             @Parameter(description = "ID пользователя", required = true)
             @RequestParam UUID userId,
@@ -58,7 +58,7 @@ public class OrderController {
     @Operation(summary = "Получить заказы пользователя",
             description = "Возвращает список заказов для указанного пользователя.")
     @GetMapping("/{userId}")
-    //@PreAuthorize("hasAuthority('ORDER_VIEW')")
+    @PreAuthorize("hasAuthority('ORDER_VIEW')")
     public ResponseEntity<List<OrderDTO>> getUserOrders(
             @Parameter(description = "ID пользователя", required = true)
             @PathVariable UUID userId) {

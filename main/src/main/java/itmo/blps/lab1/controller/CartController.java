@@ -26,7 +26,7 @@ public class CartController {
     @Operation(summary = "Получить товары в корзине",
             description = "Возвращает корзину указанного пользователя по его ID.")
     @GetMapping("/{userId}")
-    //@PreAuthorize("hasAuthority('CART_VIEW')")
+    @PreAuthorize("hasAuthority('CART_VIEW')")
     public ResponseEntity<CartDTO> getCart(
             @Parameter(description = "UUID пользователя, чью корзину нужно получить", required = true)
             @PathVariable UUID userId) {
@@ -38,7 +38,7 @@ public class CartController {
     @Operation(summary = "Добавить товар в корзину",
             description = "Добавляет указанный товар в корзину пользователя по заданному количеству.")
     @PostMapping("/{userId}")
-    //@PreAuthorize("hasAuthority('CART_ADD_ITEM')")
+    @PreAuthorize("hasAuthority('CART_ADD_ITEM')")
     public ResponseEntity<?> addToCart(
             @Parameter(description = "UUID пользователя, которому будет добавлен товар", required = true)
             @PathVariable UUID userId,
