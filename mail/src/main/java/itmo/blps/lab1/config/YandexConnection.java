@@ -33,18 +33,8 @@ public class YandexConnection {
             message.setFrom(new InternetAddress(from));
             message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Order Details");
-            message.setText(text); // Empty text as we'll add it to multipart
+            message.setText(text);
 
-            // Create attachment part
-//            MimeBodyPart attachmentPart = new MimeBodyPart();
-//            attachmentPart.setContent(pdfContent, "application/pdf");
-//            attachmentPart.setFileName("document.pdf");
-
-//            MimeMultipart multipart = new MimeMultipart();
-//            multipart.addBodyPart(attachmentPart);
-//            message.setContent(multipart);
-
-            // Send message
             String host = mailSession.getProperty("mail.smtp.host");
             int port = Integer.parseInt(mailSession.getProperty("mail.smtp.port"));
             try (Transport transport = mailSession.getTransport(mailSession.getProperty("mail.transport.protocol"))) {

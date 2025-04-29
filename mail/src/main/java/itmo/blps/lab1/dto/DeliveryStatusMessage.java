@@ -3,16 +3,18 @@ package itmo.blps.lab1.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
+@Setter
 public class DeliveryStatusMessage {
     private final String email;
     private final UUID orderId;
     private final String status;
-    private final String message;
+    private String message;
     private final LocalDateTime timestamp;
 
     @JsonCreator

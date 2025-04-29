@@ -7,6 +7,7 @@ import itmo.blps.lab1.exception.classes.ProductNotFoundException;
 import itmo.blps.lab1.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -15,16 +15,16 @@ public class JcaConfig {
     @Value("${spring.mail.port}")
     private int port;
 
-    @Value("${spring.mail.username}")
+    @Value("${MAIL_USERNAME}")
     private String username;
 
-    @Value("${spring.mail.password}")
+    @Value("${MAIL_PASSWORD}")
     private String password;
 
     @Value("${spring.mail.protocol}")
     private String protocol;
 
-    @Value("${spring.mail.box}")
+    @Value("${MAIL_BOX}")
     private String senderEmail;
 
     @Bean

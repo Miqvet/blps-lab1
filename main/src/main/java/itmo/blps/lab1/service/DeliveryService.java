@@ -1,23 +1,30 @@
 package itmo.blps.lab1.service;
 
+import io.netty.channel.ChannelHandler;
 import itmo.blps.lab1.converters.OrderConverter;
 import itmo.blps.lab1.dto.OrderDTO;
 import itmo.blps.lab1.entity.Order;
 import itmo.blps.lab1.dto.DeliveryStatusMessage;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeliveryService {
 
     private final OrderService orderService;
     private final DeliveryNotificationService notificationService;
+    private final Map<UUID, Integer> deliveryCounter = new HashMap<>();
 
     @Transactional
     public List<OrderDTO> getDeliveries() {
@@ -64,7 +71,8 @@ public class DeliveryService {
     }
 
 
-    private DeliveryStatusMessage createDeliveryServiceMessage(String email, UUID orderId, Order.OrderStatus status) {
+    private DeliveryStatusMessage createDeliveryServiceMessage(String email, UUID orderId,
+                                                               Order.OrderStatus status) {
         String message = generateStatusMessage(status);
         DeliveryStatusMessage statusMessage = new DeliveryStatusMessage(
                 email, orderId, status.name(), message, LocalDateTime.now()
@@ -79,6 +87,61 @@ public class DeliveryService {
             case CANCELED -> "Your order was cancelled.";
             default -> "Order status updated.";
         };
+    }
+
+    @Scheduled(fixedDelay = 3 * 60 * 1000)
+    public void scheduleDeliveryService() {
+        var orders = orderService.findByStatus(Order.OrderStatus.DELIVERED);
+        for (var order : orders) {
+            LocalDateTime deliveryDate = order.getUpdatedAt().toLocalDateTime();
+            LocalDateTime now = LocalDateTime.now();
+
+            long hoursUntilDelivery = ChronoUnit.HOURS.between(now, deliveryDate);
+
+            if (hoursUntilDelivery == 24 && !deliveryCounter.containsKey(order.getId())) {
+                notificationService.notifyDeliveryStatus(
+                        createDeliveryServiceMessage(
+                                order.getUser().getEmail(),
+                                order.getId(),
+                                Order.OrderStatus.SHIPPED
+                        )
+                );
+                deliveryCounter.put(order.getId(), 0);
+            } else if (hoursUntilDelivery == 48 &&
+                    deliveryCounter.containsKey(order.getId())
+                    && deliveryCounter.get(order.getId()) == 0) {
+                notificationService.notifyDeliveryStatus(
+                        createDeliveryServiceMessage(
+                                order.getUser().getEmail(),
+                                order.getId(),
+                                Order.OrderStatus.SHIPPED
+                        )
+                );
+                deliveryCounter.put(order.getId(), 1);
+            } else if (hoursUntilDelivery == 72 &&
+                    deliveryCounter.containsKey(order.getId())
+                    && deliveryCounter.get(order.getId()) == 1) {
+                notificationService.notifyDeliveryStatus(
+                        createDeliveryServiceMessage(
+                                order.getUser().getEmail(),
+                                order.getId(),
+                                Order.OrderStatus.SHIPPED
+                        )
+                );
+                deliveryCounter.put(order.getId(), 2);
+            } else if (hoursUntilDelivery == 96 &&
+                    deliveryCounter.containsKey(order.getId())
+                    && deliveryCounter.get(order.getId()) == 2) {
+                notificationService.notifyDeliveryStatus(
+                        createDeliveryServiceMessage(
+                                order.getUser().getEmail(),
+                                order.getId(),
+                                Order.OrderStatus.CANCELED
+                        )
+                );
+                orderService.cancelOrder(order.getId());
+            }
+        }
     }
 }
 
