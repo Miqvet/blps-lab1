@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - "61616:61616"   # JMS-порт
+      - "8161:8161"     # Веб-интерфейс (логин: admin/admin)
+    environment:
+      - ACTIVEMQ_ADMIN_LOGIN=admin
+      - ACTIVEMQ_ADMIN_PASSWORD=admin
+
+  main-app:                  # Сервис-отправитель
+    build:
+      context: ./main
+    depends_on:
+      - activemq
+    environment:
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+    ports:
+      - "8080:8080"         # Порт основного приложения
+
+  mail-service:             # Сервис-получатель
+    build:
+      context: ./mail
+    depends_on:
+      - activemq
+    environment:
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+    ports:
+      - "8081:8080"         # Порт сервиса обработки писем
