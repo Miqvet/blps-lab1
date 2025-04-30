@@ -53,9 +53,9 @@ services:
       activemq:
         condition: service_started
     environment:
-      MAIL_USERNAME: name
-      MAIL_PASSWORD: pass
-      MAIL_BOX: mail
+      MAIL_USERNAME: eew
+      MAIL_PASSWORD: zazaziza
+      MAIL_BOX: azazazazaz
       SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
     ports:
       - "8081:8081"

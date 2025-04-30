@@ -29,7 +29,7 @@ public class ProductController {
     @Operation(summary = "Получить список товаров",
             description = "Возвращает список всех доступных товаров.")
     @GetMapping
-    @PreAuthorize("hasAuthority('PRODUCT_VIEW')")
+    //@PreAuthorize("hasAuthority('PRODUCT_VIEW')")
     public ResponseEntity<List<ProductDTO>> getProducts(
             @Parameter(description = "Номер страницы", example = "0")
             @RequestParam(defaultValue = "0") int page,
@@ -47,7 +47,7 @@ public class ProductController {
     @Operation(summary = "Добавить товар",
             description = "Создает новый товар на основе переданных данных.")
     @PostMapping()
-    @PreAuthorize("hasAuthority('CREATE_PRODUCT')")
+    //@PreAuthorize("hasAuthority('CREATE_PRODUCT')")
     public ResponseEntity<ProductDTO> addProducts(
             @Valid @RequestBody CreateProductRequest createProductRequest) {
 //        if(createProductRequest.getPrice().compareTo(BigDecimal.ONE) < 0){

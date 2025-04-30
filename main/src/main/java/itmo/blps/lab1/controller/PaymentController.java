@@ -25,7 +25,7 @@ public class PaymentController {
     @Operation(summary = "Получить статус платежа",
             description = "Возвращает статус платежа для указанного заказа.")
     @GetMapping("/{orderId}")
-    @PreAuthorize("hasAuthority('CHECK_PAYMENT')")
+    //@PreAuthorize("hasAuthority('CHECK_PAYMENT')")
     public ResponseEntity<PaymentDTO> getPaymentStatus(
             @Parameter(description = "ID заказа", required = true)
             @PathVariable UUID orderId) {

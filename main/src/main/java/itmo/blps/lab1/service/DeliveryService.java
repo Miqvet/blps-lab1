@@ -93,7 +93,7 @@ public class DeliveryService {
     public void scheduleDeliveryService() {
         var orders = orderService.findByStatus(Order.OrderStatus.DELIVERED);
         for (var order : orders) {
-            LocalDateTime deliveryDate = order.getUpdatedAt().toLocalDateTime();
+            LocalDateTime deliveryDate = order.getCreatedAt().toLocalDateTime();
             LocalDateTime now = LocalDateTime.now();
 
             long hoursUntilDelivery = ChronoUnit.HOURS.between(now, deliveryDate);

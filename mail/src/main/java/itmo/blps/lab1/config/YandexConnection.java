@@ -9,6 +9,7 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.resource.ResourceException;
 import jakarta.resource.spi.ConnectionEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.util.encoders.UTF8;
 
 @Slf4j
 public class YandexConnection {
@@ -33,7 +34,7 @@ public class YandexConnection {
             message.setFrom(new InternetAddress(from));
             message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Order Details");
-            message.setText(text);
+            message.setText(text, "UTF-8");
 
             String host = mailSession.getProperty("mail.smtp.host");
             int port = Integer.parseInt(mailSession.getProperty("mail.smtp.port"));

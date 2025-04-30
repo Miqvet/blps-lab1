@@ -15,16 +15,13 @@
     </license>
 
     <resourceadapter>
-        <resourceadapter-class>itmo.blps.blps.jca.SmtpResourceAdapter</resourceadapter-class>
-
         <outbound-resourceadapter>
             <connection-definition>
-                <managedconnectionfactory-class>com.decafmango.blpsconsumer.mail.config.YandexManagedConnectionFactory</managedconnectionfactory-class>
-                <connectionfactory-interface>com.decafmango.blpsconsumer.mail.config.YandexConnectionFactory</connectionfactory-interface>
-                <connectionfactory-impl-class>com.decafmango.blpsconsumer.mail.config.YandexConnectionFactoryImpl</connectionfactory-impl-class>
-                <connection-interface>com.decafmango.blpsconsumer.mail.config.YandexConnection</connection-interface>
-                <connection-impl-class>itmo.blps.blps.jca.SmtpConnectionImpl</connection-impl-class>
-                <connection-impl-class>com.decafmango.blpsconsumer.mail.config.YandexConnectionImpl</connection-impl-class>
+                <managedconnectionfactory-class>itmo.blps.lab1.config.YandexManagedConnectionFactory</managedconnectionfactory-class>
+                <connectionfactory-interface>itmo.blps.lab1.config.YandexConnectionFactory</connectionfactory-interface>
+                <connectionfactory-impl-class>itmo.blps.lab1.config.YandexConnectionFactoryImpl</connectionfactory-impl-class>
+                <connection-interface>itmo.blps.lab1.config.YandexConnection</connection-interface>
+                <connection-impl-class>itmo.blps.lab1.config.YandexConnectionImpl</connection-impl-class>
             </connection-definition>
             <transaction-support>NoTransaction</transaction-support>
             <authentication-mechanism>

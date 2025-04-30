@@ -25,7 +25,7 @@ public class CategoryController {
     @Operation(summary = "Добавить категорию",
             description = "Создает новую категорию с указанным именем.")
     @PostMapping
-    @PreAuthorize("hasAuthority('CREATE_CATEGORY')")
+    //@PreAuthorize("hasAuthority('CREATE_CATEGORY')")
     public ResponseEntity<?> addCategory(
             @Parameter(description = "Имя категории", required = true)
             @RequestBody String categoryName) {
@@ -41,7 +41,7 @@ public class CategoryController {
     @Operation(summary = "Получить все категории",
             description = "Возвращает список всех категорий.")
     @GetMapping
-    @PreAuthorize("hasAuthority('CATEGORY_VIEW')")
+    //@PreAuthorize("hasAuthority('CATEGORY_VIEW')")
     public ResponseEntity<List<Category>> getAllCategories() {
         return ResponseEntity.ok(categoryService.getAll());
     }

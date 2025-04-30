@@ -2,6 +2,7 @@ package itmo.blps.lab1.service;
 
 import itmo.blps.lab1.config.YandexConnection;
 import itmo.blps.lab1.dto.DeliveryStatusMessage;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,15 +35,15 @@ public class MailService {
             throw new RuntimeException("Failed to send email", e);
         }
     }
-    //TODO только для теста
-    @Scheduled(fixedDelay = 1 * 60 * 1000)
-    public void send() {
-        try {
-            connection.send("mail", mail, "Страшно");
-            log.info("Email sent successfully to {}", "mail");
-        } catch (Exception e) {
-            log.error("Failed to send email to {}: {}", "mail", e.getMessage());
-            throw new RuntimeException("Failed to send email", e);
-        }
-    }
+//    //TODO только для теста
+//    @Scheduled(fixedDelay = 1 * 60 * 1000)
+//    public void send() {
+//        try {
+//            connection.send("mail", mail, "Страшно");
+//            log.info("Email sent successfully to {}", "mail");
+//        } catch (Exception e) {
+//            log.error("Failed to send email to {}: {}", "mail", e.getMessage());
+//            throw new RuntimeException("Failed to send email", e);
+//        }
+//    }
 }
