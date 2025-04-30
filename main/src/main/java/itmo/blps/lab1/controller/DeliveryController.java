@@ -25,6 +25,7 @@ public class DeliveryController {
     @Operation(summary = "Получить все заказы ожидающие доставки",
             description = "Получает пул заказов которые в данный момент ожидают согласования доставки")
     //@PreAuthorize("hasAuthority('WAITING_DELIVERIES')")
+//    @PreAuthorize("hasAuthority('WAITING_DELIVERIES')")
     @GetMapping("/waiting")
     public ResponseEntity<List<OrderDTO>> getDeliveries() {
         List<OrderDTO> deliveries = deliveryService.getDeliveries();
@@ -33,6 +34,7 @@ public class DeliveryController {
 
     @Operation(summary = "Начать доставку",
             description = "Запускает процесс доставки для указанного заказа.")
+//    @PreAuthorize("hasAuthority('START_DELIVERY')")
     //@PreAuthorize("hasAuthority('START_DELIVERY')")
     @PostMapping("/{orderId}/start")
     public ResponseEntity<OrderDTO> startDelivery(

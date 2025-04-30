@@ -1,5 +1,8 @@
 package itmo.blps.lab1.config;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.Multipart;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
@@ -9,7 +12,8 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.resource.ResourceException;
 import jakarta.resource.spi.ConnectionEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.util.encoders.UTF8;
+
+import java.io.File;
 
 @Slf4j
 public class YandexConnection {
@@ -26,7 +30,7 @@ public class YandexConnection {
         this.username = username;
     }
 
-    public void send(String to, String from, String text) {
+    public void send(String to, String from, String text, File attachment){
         try {
             checkIfClosed();
 
@@ -35,6 +39,15 @@ public class YandexConnection {
             message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Order Details");
             message.setText(text, "UTF-8");
+
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            attachmentPart.setDataHandler(new DataHandler(new FileDataSource(attachment)));
+            attachmentPart.setFileName(attachment.getName());
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(attachmentPart);
+
+            message.setContent(multipart);
 
             String host = mailSession.getProperty("mail.smtp.host");
             int port = Integer.parseInt(mailSession.getProperty("mail.smtp.port"));
