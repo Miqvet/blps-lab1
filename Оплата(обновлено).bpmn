@@ -7,7 +7,7 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1r1vmxp" associationDirection="None" sourceRef="DataStoreReference_1yplkqn" targetRef="TextAnnotation_1ioi925" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_01ej8nn" isExecutable="false">
+  <bpmn:process id="Process_01ej8nn" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1df375g">
       <bpmn:lane id="Lane_1d31zsc" name="Сервер">
         <bpmn:flowNodeRef>Activity_0kk33bw</bpmn:flowNodeRef>

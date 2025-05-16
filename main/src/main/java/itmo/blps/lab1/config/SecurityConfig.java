@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .authenticationProvider(jaasAuthenticationProvider(configuration()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/camunda/**").permitAll()
                         .requestMatchers(
                                 "/api/register",
                                 "/api/login",

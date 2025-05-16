@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "text": "# List:",
+      "type": "text",
+      "layout": {
+        "row": "Row_04ada4x",
+        "columns": null
+      },
+      "id": "Field_0y1pjk1"
+    },
+    {
+      "text": "{{products[1]}}",
+      "type": "text",
+      "layout": {
+        "row": "Row_04ada4x",
+        "columns": null
+      },
+      "id": "Field_0ap0tkj",
+      "properties": {}
+    }
+  ],
+  "type": "default",
+  "id": "produc_list1",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

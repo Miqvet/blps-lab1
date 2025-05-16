@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "text": "# Показать список товаров",
+      "type": "text",
+      "layout": {
+        "row": "Row_0rlq23v",
+        "columns": null
+      },
+      "id": "Field_0qgtc06"
+    },
+    {
+      "label": "Показать",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0q6asw5",
+        "columns": null
+      },
+      "id": "Field_1rzehzn"
+    }
+  ],
+  "type": "default",
+  "id": "Form_14hpq04",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

@@ -5,6 +5,7 @@ import com.atomikos.icatch.jta.UserTransactionManager;
 import com.atomikos.spring.AtomikosDataSourceBean;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.UserTransaction;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -85,7 +86,7 @@ public class AtomikosConfiguration {
     @Bean
     @DependsOn({"atomikosTransactionManager", "userTransaction"})
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            DataSource dataSource,
+            @Qualifier("dataSource") DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter
     ) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -109,5 +110,6 @@ public class AtomikosConfiguration {
     public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
         return new TransactionTemplate(transactionManager);
     }
+
 }
 
