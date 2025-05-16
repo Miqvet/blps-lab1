@@ -1,0 +1,41 @@
+{
+  "components": [
+    {
+      "text": "# Запрос на доставку",
+      "type": "text",
+      "layout": {
+        "row": "Row_0i77lps",
+        "columns": null
+      },
+      "id": "Field_14ecpp0"
+    },
+    {
+      "content": "Payment json:\n<pre>{{payment}}</pre>",
+      "type": "html",
+      "layout": {
+        "row": "Row_1yfosyz",
+        "columns": null
+      },
+      "id": "Field_0lf4r6q"
+    },
+    {
+      "label": "Подтвердить",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0s1lgo2",
+        "columns": null
+      },
+      "id": "Field_1lu814v"
+    }
+  ],
+  "type": "default",
+  "id": "order_payment_result",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

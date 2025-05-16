@@ -1,5 +1,7 @@
 package itmo.blps.lab1.workflow.delegates;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import itmo.blps.lab1.converters.PaymentConverter;
 import itmo.blps.lab1.dto.PaymentDTO;
 import itmo.blps.lab1.entity.Order;
@@ -29,7 +31,9 @@ public class OrderPaymentDelegate implements JavaDelegate {
         log.info("PaymentDelegate placeOrderAndProcessPayment() start");
         try {
             Payment payment = orderPaymentFacadeService.placeOrderAndProcessPayment(userId, address, method);
-            String json = PaymentConverter.toDTO(payment).toString();
+            PaymentDTO dto = PaymentConverter.toDTO(payment);
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dto);
             execution.setVariable("payment", json);
             execution.setVariable("isSuccess", true);
         } catch (Exception ex) {

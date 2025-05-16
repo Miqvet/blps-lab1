@@ -4,14 +4,8 @@
     <bpmn:participant id="order_payment_participant" name="Оплата" processRef="order_payment_process" />
   </bpmn:collaboration>
   <bpmn:process id="order_payment_process" name="OrderAndPayment" isExecutable="true" camunda:historyTimeToLive="30">
-    <bpmn:startEvent id="StartEvent_1" name="Оплата">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="userId" label="User ID" type="string" />
-          <camunda:formField id="address" label="Address" type="string" />
-          <camunda:formField id="method" label="Method" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1" name="Оплата" camunda:formRef="order_payment_form" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
       <bpmn:outgoing>Flow_0i6kyl1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_0ybsuf6" name="Отправка запроса на оплату" camunda:delegateExpression="${orderPaymentDelegate}">
@@ -27,12 +21,8 @@
     <bpmn:endEvent id="Event_1pbqr2t" name="Статус операции: ошибка">
       <bpmn:incoming>Flow_0yhmq0m</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_1mxtzfa" name="Создание запроса на доставку">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="payment" label="Payment" type="string" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Activity_1mxtzfa" name="Создание запроса на доставку" camunda:formRef="order_payment_result" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_076vide</bpmn:incoming>
       <bpmn:outgoing>Flow_1lhgyfn</bpmn:outgoing>
     </bpmn:userTask>

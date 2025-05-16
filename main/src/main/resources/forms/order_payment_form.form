@@ -1,0 +1,77 @@
+{
+  "components": [
+    {
+      "text": "# Запрос оформление корзны",
+      "type": "text",
+      "layout": {
+        "row": "Row_0i77lps",
+        "columns": null
+      },
+      "id": "Field_14ecpp0"
+    },
+    {
+      "label": "User ID (UUID)",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_159ixu6",
+        "columns": null
+      },
+      "id": "Field_01iemy6",
+      "key": "userId",
+      "validate": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+      }
+    },
+    {
+      "label": "Адрес",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f90t2e",
+        "columns": null
+      },
+      "id": "Field_0u4k8xo",
+      "key": "address",
+      "validate": {
+        "required": true,
+        "pattern": "^[a-zA-Zа-яА-Я0-9 .]+$"
+      }
+    },
+    {
+      "label": "Способ оплаты",
+      "values": [
+        {
+          "label": "Кредитная карта",
+          "value": "CREDIT_CARD"
+        },
+        {
+          "label": "Paypal",
+          "value": "PAYPAL"
+        },
+        {
+          "label": "Apple pay",
+          "value": "APPLE_PAY"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0hfgajg",
+        "columns": null
+      },
+      "id": "Field_1yjxukc",
+      "key": "method",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "order_payment_form",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}
