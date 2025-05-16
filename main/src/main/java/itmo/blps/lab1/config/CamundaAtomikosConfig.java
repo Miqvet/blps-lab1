@@ -37,14 +37,6 @@ public class CamundaAtomikosConfig {
     @Value("${spring.datasource.xa.password}")
     private String password;
 
-    // Общий TransactionManager (используется и для JPA и для Camunda)
-    @Bean
-    public PlatformTransactionManager jtaTransactionManager(
-            UserTransaction userTransaction,
-            UserTransactionManager atomikosTransactionManager) {
-        return new JtaTransactionManager(userTransaction, atomikosTransactionManager);
-    }
-
     // DataSource для Camunda (использует ту же БД, но отдельный пул соединений)
     @Bean(name = "camundaDataSource")
     @DependsOn("atomikosTransactionManager")

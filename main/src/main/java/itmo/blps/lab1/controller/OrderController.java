@@ -54,14 +54,12 @@ public class OrderController {
         variables.put("deliveryAddress", deliveryAddress);
         variables.put("paymentMethod", method);
 
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey(
-                "order_processing",
+        runtimeService.startProcessInstanceByKey(
+                "order_payment_process",
                 variables
         );
 
-        return ResponseEntity.ok(Collections.singletonMap(
-                "processInstanceId", instance.getId()
-        ));
+        return ResponseEntity.accepted().build();
     }
 
     @Operation(summary = "Получить заказы пользователя",
