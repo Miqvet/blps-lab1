@@ -10,7 +10,7 @@
       "id": "Field_06w4a5f"
     },
     {
-      "content": "Orders json:\n<pre>{{orders}}</pre>",
+      "content": "Products list:\n<pre>{{products}}</pre>",
       "type": "html",
       "layout": {
         "row": "Row_0gs024m",
@@ -39,7 +39,8 @@
       "key": "radio_yifaw",
       "validate": {
         "required": true
-      }
+      },
+      "properties": {}
     }
   ],
   "type": "default",

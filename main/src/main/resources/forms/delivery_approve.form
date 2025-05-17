@@ -10,7 +10,7 @@
       "id": "Field_1rkzkk8"
     },
     {
-      "content": "Orders json:\n<pre>{{orders}}</pre>",
+      "content": "Orders json:\n<pre>{{products}}</pre>",
       "type": "html",
       "layout": {
         "row": "Row_1i1ln3k",

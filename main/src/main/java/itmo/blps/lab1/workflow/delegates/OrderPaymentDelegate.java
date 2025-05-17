@@ -35,7 +35,7 @@ public class OrderPaymentDelegate implements JavaDelegate {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dto);
             execution.setVariable("payment", json);
-            execution.setVariable("orderId", payment.getOrder().getId());
+            execution.setVariable("orderId", payment.getOrder().getId().toString());
             execution.setVariable("isSuccess", true);
         } catch (Exception ex) {
             execution.setVariable("isSuccess", false);

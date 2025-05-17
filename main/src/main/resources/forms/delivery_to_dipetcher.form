@@ -19,11 +19,28 @@
       "source": "https://avatars.mds.yandex.net/i?id=3faec30a930a405a86d5d94b1bed48a1_l-11723847-images-thumbs&n=13"
     },
     {
+      "type": "separator",
+      "layout": {
+        "row": "Row_1u01iff",
+        "columns": null
+      },
+      "id": "Field_0t890y2"
+    },
+    {
+      "content": "Orders json:\n<pre>{{products}}</pre>",
+      "type": "html",
+      "layout": {
+        "row": "Row_1fpg1h5",
+        "columns": null
+      },
+      "id": "Field_09u6uy3"
+    },
+    {
       "label": "Передать",
       "action": "submit",
       "type": "button",
       "layout": {
-        "row": "Row_1fpg1h5",
+        "row": "Row_1v2vugi",
         "columns": null
       },
       "id": "Field_07pcfhm"
