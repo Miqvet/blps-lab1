@@ -6,12 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
-public class DeliveryStatusMessage {
+public class DeliveryStatusMessage implements Serializable {
     private final String email;
     private final UUID orderId;
     private final String status;
