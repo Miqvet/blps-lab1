@@ -1,0 +1,22 @@
+{
+  "components": [
+    {
+      "text": "# Заказ успешно доставлен! 🎁🚀🥳🎊",
+      "type": "text",
+      "layout": {
+        "row": "Row_0u1ks3h",
+        "columns": null
+      },
+      "id": "Field_1q0o85b"
+    }
+  ],
+  "type": "default",
+  "id": "Form_026bf0v",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

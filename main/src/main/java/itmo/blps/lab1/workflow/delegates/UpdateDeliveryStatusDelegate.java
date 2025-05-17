@@ -3,6 +3,7 @@ package itmo.blps.lab1.workflow.delegates;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import itmo.blps.lab1.converters.OrderConverter;
 import itmo.blps.lab1.entity.Order;
+import itmo.blps.lab1.service.DeliveryService;
 import itmo.blps.lab1.service.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Component("updateDeliveryStatusDelegate")
 class UpdateDeliveryStatusDelegate implements JavaDelegate {
 
-    private final OrderService orderService;
+    private final DeliveryService deliveryService;
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
@@ -25,16 +26,15 @@ class UpdateDeliveryStatusDelegate implements JavaDelegate {
         Order.OrderStatus orderStatus = Order.OrderStatus.valueOf((String) delegateExecution.getVariable("orderStatus"));
         UUID orderId = UUID.fromString((String) delegateExecution.getVariable("orderId"));
 
-        Order order = orderService.findById(orderId);
+        String newOrderStatus = (String) delegateExecution.getVariable("orderStatus_new");
 
-        if (order == null) {
-            throw new RuntimeException("Order not found");
-        }
+        if (newOrderStatus != null) orderStatus = Order.OrderStatus.valueOf(newOrderStatus);
 
-        order.setStatus(orderStatus);
-        orderService.updateOrder(order);
+        Order order = deliveryService.updateDeliveryStatus(orderId, orderStatus);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(OrderConverter.toDTO(order));
+        delegateExecution.setVariable("orderStatus", orderStatus.name());
         delegateExecution.setVariable("order", json);
+        delegateExecution.setVariable("isShipped", order.getStatus() == Order.OrderStatus.DELIVERED);
     }
 }

@@ -1,0 +1,73 @@
+{
+  "components": [
+    {
+      "text": "# Обновление статуса доставки",
+      "type": "text",
+      "layout": {
+        "row": "Row_080s36m",
+        "columns": null
+      },
+      "id": "Field_09zvb9k"
+    },
+    {
+      "text": "#### orderID: {{orderId}}",
+      "type": "text",
+      "layout": {
+        "row": "Row_1qn7s7d",
+        "columns": null
+      },
+      "id": "Field_1tljqnc"
+    },
+    {
+      "text": "#### orderStatus: {{orderStatus}}",
+      "type": "text",
+      "layout": {
+        "row": "Row_0c2bj16",
+        "columns": null
+      },
+      "id": "Field_1l9pu5s"
+    },
+    {
+      "label": "Select",
+      "values": [
+        {
+          "label": "Отправено",
+          "value": "SHIPPED"
+        },
+        {
+          "label": "Доставлено",
+          "value": "DELIVERED"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0hw00ky",
+        "columns": null
+      },
+      "id": "Field_0f4y5pq",
+      "key": "orderStatus_new",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Обновить",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_1vujsdu",
+        "columns": null
+      },
+      "id": "Field_04i2i66"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0oxb5ij",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}
