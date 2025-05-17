@@ -21,22 +21,22 @@ services:
       timeout: 5s
       retries: 5
 
-  #activemq:
-  #  image: rmohr/activemq
-  #  ports:
-  #    - "61616:61616"
-  #    - "8161:8161"
-  #  environment:
-  #    ACTIVEMQ_ADMIN_LOGIN: admin
-  #    ACTIVEMQ_ADMIN_PASSWORD: admin
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
 
   main-app:
     build: ./main
     depends_on:
       postgres:
         condition: service_healthy
-    #  activemq:
-    #    condition: service_started
+      activemq:
+        condition: service_started
     environment:
       SPRING_JPA_PROPERTIES_HIBERNATE_TRANSACTION_JTA_PLATFORM: com.atomikos.icatch.jta.hibernate4.AtomikosPlatform
       SPRING_DATASOURCE_XA_SERVER_NAME: postgres
@@ -48,20 +48,20 @@ services:
     ports:
       - "8080:8080"
 
-  #mail-service:
-  #  build: ./mail
-  #  depends_on:
-  #    postgres:
-  #      condition: service_healthy
-  #    activemq:
-  #      condition: service_started
-  #  environment:
-  #    MAIL_USERNAME: nik3152815
-  #    MAIL_PASSWORD: pkwxylvtdlirucim
-  #    MAIL_BOX: nik3152815@yandex.ru
-  #    SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
-  #  restart: unless-stopped  # Добавляем политику перезапуска
-    # Порт 8081 используется внутри Docker-сети, наружу не пробрасываем
+  mail-service:
+    build: ./mail
+    depends_on:
+      postgres:
+        condition: service_healthy
+      activemq:
+        condition: service_started
+    environment:
+      MAIL_USERNAME: nik3152815
+      MAIL_PASSWORD: pkwxylvtdlirucim
+      MAIL_BOX: nik3152815@yandex.ru
+      SPRING_ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+    restart: unless-stopped  # Добавляем политику перезапуска
+#     Порт 8081 используется внутри Docker-сети, наружу не пробрасываем
 
 volumes:
   postgres_data:

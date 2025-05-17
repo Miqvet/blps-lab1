@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1pxytmr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.35.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <bpmn:collaboration id="Collaboration_1w0mpnv">
+    <bpmn:participant id="Participant_0p7ppwa" name="Периодческая задача" processRef="Process_18vz09l" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_18vz09l" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:endEvent id="Event_0841pfq">
+      <bpmn:incoming>Flow_0n0f07n</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="CheckDeliveryStatusTask" name="Check Delivery Status" camunda:delegateExpression="#{checkDeliveryStatusDelegate}">
+      <bpmn:incoming>Flow_0chfx50</bpmn:incoming>
+      <bpmn:outgoing>Flow_0t25jz7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="Event_1kkji3s">
+      <bpmn:outgoing>Flow_0chfx50</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle>0 * * * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="sendNotificationTask" name="Send notification" camunda:delegateExpression="#{sendNotificationDelegate}">
+      <bpmn:incoming>Flow_0t25jz7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n0f07n</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0n0f07n" sourceRef="sendNotificationTask" targetRef="Event_0841pfq" />
+    <bpmn:sequenceFlow id="Flow_0chfx50" sourceRef="Event_1kkji3s" targetRef="CheckDeliveryStatusTask" />
+    <bpmn:sequenceFlow id="Flow_0t25jz7" sourceRef="CheckDeliveryStatusTask" targetRef="sendNotificationTask" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1w0mpnv">
+      <bpmndi:BPMNShape id="Participant_0p7ppwa_di" bpmnElement="Participant_0p7ppwa" isHorizontal="true">
+        <dc:Bounds x="160" y="95" width="610" height="255" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0841pfq_di" bpmnElement="Event_0841pfq">
+        <dc:Bounds x="692" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_079u82i_di" bpmnElement="CheckDeliveryStatusTask">
+        <dc:Bounds x="340" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1kkji3s_di" bpmnElement="Event_1kkji3s">
+        <dc:Bounds x="242" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_021ljqz" bpmnElement="sendNotificationTask">
+        <dc:Bounds x="510" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0n0f07n_di" bpmnElement="Flow_0n0f07n">
+        <di:waypoint x="610" y="220" />
+        <di:waypoint x="692" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0chfx50_di" bpmnElement="Flow_0chfx50">
+        <di:waypoint x="278" y="220" />
+        <di:waypoint x="340" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t25jz7_di" bpmnElement="Flow_0t25jz7">
+        <di:waypoint x="440" y="220" />
+        <di:waypoint x="510" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

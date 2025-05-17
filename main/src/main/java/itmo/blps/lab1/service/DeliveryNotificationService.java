@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class DeliveryNotificationService {
+public class DeliveryNotificationService {
     private final JmsTemplate jmsTemplate;
 
 

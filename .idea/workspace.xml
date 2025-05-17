@@ -5,24 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f9ec677-8a44-4c70-8443-0457a6bc843b" name="Changes" comment="fixes">
-      <change afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/config/CamundaAtomikosConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/workflow/delegates/PaymentDelegate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/workflow/delegates/ProductDelegate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/workflow/delegates/ValidateCartDelegate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/src/main/resources/forms/form_1.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/src/main/resources/processes/diagram_2.bpmn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c85aef6e-eea2-43e9-82fd-109db7570240.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/config/AtomikosConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/config/AtomikosConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Оплата(обновлено).bpmn" beforeDir="false" afterPath="$PROJECT_DIR$/Оплата(обновлено).bpmn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/доставка(обновленная).bpmn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/service/DeliveryNotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/src/main/java/itmo/blps/lab1/service/DeliveryNotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Оплата(обновлено).bpmn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/регистрация_и_покупкаобновлено.bpmn" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +52,8 @@
     "Docker.docker-compose.yml.main-app: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml.postgres: Compose Deployment.executor": "Run",
     "Docker.main/Dockerfile.executor": "Run",
+    "Maven.lab1 [clean,install,package].executor": "Run",
+    "Maven.lab1 [clean,install].executor": "Run",
     "Maven.lab1 [clean,package].executor": "Run",
     "Maven.lab1 [clean].executor": "Run",
     "Maven.mail [clean].executor": "Run",
@@ -112,6 +102,8 @@
     <option name="myCommands">
       <command value="mvn clean" />
       <command value="mvn clean package" />
+      <command value="mvn clean install" />
+      <command value="mvn clean install package" />
     </option>
   </component>
   <component name="RunManager" selected="Docker.docker-compose.yml.main-app: Compose Deployment">
@@ -198,6 +190,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -215,10 +215,22 @@
       <workItem from="1745069153087" duration="19487000" />
       <workItem from="1747257622838" duration="7347000" />
       <workItem from="1747336571097" duration="24601000" />
+      <workItem from="1747427250475" duration="13406000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
