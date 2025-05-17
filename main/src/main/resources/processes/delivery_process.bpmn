@@ -114,11 +114,11 @@
       <bpmn:outgoing>Flow_0vz72ot</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:dataStoreReference id="DataStoreReference_0ov0br0" />
-    <bpmn:endEvent id="Event_0uye503" name="Доствака начата">
-      <bpmn:incoming>Flow_0vz72ot</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="Event_1pk6q7o" name="Доставка прервана">
       <bpmn:incoming>Flow_17f6lmg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_0uye503" name="Доствака начата">
+      <bpmn:incoming>Flow_0vz72ot</bpmn:incoming>
     </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -204,16 +204,16 @@
       <bpmndi:BPMNShape id="BPMNShape_1o9erco" bpmnElement="DataStoreReference_0ov0br0">
         <dc:Bounds x="1285" y="255" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0uye503_di" bpmnElement="Event_0uye503">
-        <dc:Bounds x="1542" y="172" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1518" y="215" width="85" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_113veie" bpmnElement="Event_1pk6q7o">
         <dc:Bounds x="1152" y="412" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1146" y="455" width="49" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0uye503_di" bpmnElement="Event_0uye503">
+        <dc:Bounds x="1552" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1528" y="215" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0df8s4c_di" bpmnElement="Flow_0df8s4c">
@@ -253,7 +253,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vz72ot_di" bpmnElement="Flow_0vz72ot">
         <di:waypoint x="1500" y="190" />
-        <di:waypoint x="1542" y="190" />
+        <di:waypoint x="1552" y="190" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jlbld9_di" bpmnElement="Flow_0jlbld9">
         <di:waypoint x="660" y="430" />

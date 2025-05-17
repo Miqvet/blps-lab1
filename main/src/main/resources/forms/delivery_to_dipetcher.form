@@ -27,7 +27,7 @@
       "id": "Field_0t890y2"
     },
     {
-      "content": "Orders json:\n<pre>{{products}}</pre>",
+      "content": "Orders json:\n<pre>{{order}}</pre>",
       "type": "html",
       "layout": {
         "row": "Row_1fpg1h5",
