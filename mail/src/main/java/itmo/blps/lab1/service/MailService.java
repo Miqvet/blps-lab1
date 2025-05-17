@@ -40,15 +40,4 @@ public class MailService {
             throw new RuntimeException("Failed to send email", e);
         }
     }
-//    //TODO только для теста
-//    @Scheduled(fixedDelay = 1 * 60 * 1000)
-//    public void send() {
-//        try {
-//            connection.send("mail", mail, "Страшно");
-//            log.info("Email sent successfully to {}", "mail");
-//        } catch (Exception e) {
-//            log.error("Failed to send email to {}: {}", "mail", e.getMessage());
-//            throw new RuntimeException("Failed to send email", e);
-//        }
-//    }
 }

@@ -4,6 +4,7 @@ import itmo.blps.lab1.dto.DeliveryStatusMessage;
 import itmo.blps.lab1.entity.Order;
 import itmo.blps.lab1.service.DeliveryNotificationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Component("sendNotificationDelegate")
 @RequiredArgsConstructor
 public class SendNotificationDelegate implements JavaDelegate {
@@ -19,6 +21,7 @@ public class SendNotificationDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) {
+        log.info("start sending message");
         String email = (String) execution.getVariable("email");
         String orderIdStr = (String) execution.getVariable("orderId");
         String statusStr = (String) execution.getVariable("status");
@@ -40,7 +43,7 @@ public class SendNotificationDelegate implements JavaDelegate {
                 message,
                 LocalDateTime.now()
         );
-
+        log.info("send message to {}", email);
         notificationService.notifyDeliveryStatus(statusMessage);
     }
 }
