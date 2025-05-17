@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1xij47t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.35.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <bpmn:message id="Message_1" name="DeliveryStatusMessage" />
+  <bpmn:collaboration id="Collaboration_0zjl8bv">
+    <bpmn:participant id="Participant_1bd2pmg" name="Отправка сообщений" processRef="process_delivery_status" />
+  </bpmn:collaboration>
+  <bpmn:process id="process_delivery_status" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="Event_0sv8ues" name="Получение сообщения об отправке">
+      <bpmn:outgoing>Flow_0rq9wia</bpmn:outgoing>
+      <bpmn:messageEventDefinition  messageRef="Message_1" id="MessageEventDefinition_04z77h5" />
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="processing_message_send" name="Генерация отчетности и отправка сообщения" camunda:delegateExpression="#{processEmailSendingDelegate}">
+      <bpmn:incoming>Flow_0rq9wia</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e87ral</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0rq9wia" sourceRef="Event_0sv8ues" targetRef="processing_message_send" />
+    <bpmn:sequenceFlow id="Flow_0e87ral" sourceRef="processing_message_send" targetRef="Event_0owpxbp" />
+    <bpmn:endEvent id="Event_0owpxbp" name="Конец работы сервиса">
+      <bpmn:incoming>Flow_0e87ral</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0zjl8bv">
+      <bpmndi:BPMNShape id="Participant_1bd2pmg_di" bpmnElement="Participant_1bd2pmg" isHorizontal="true">
+        <dc:Bounds x="190" y="85" width="390" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0sv8ues_di" bpmnElement="Event_0sv8ues">
+        <dc:Bounds x="272" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="254" y="235" width="73" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15rsx9r_di" bpmnElement="processing_message_send">
+        <dc:Bounds x="360" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0owpxbp_di" bpmnElement="Event_0owpxbp">
+        <dc:Bounds x="502" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="484" y="235" width="72" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0rq9wia_di" bpmnElement="Flow_0rq9wia">
+        <di:waypoint x="308" y="210" />
+        <di:waypoint x="360" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e87ral_di" bpmnElement="Flow_0e87ral">
+        <di:waypoint x="460" y="210" />
+        <di:waypoint x="502" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

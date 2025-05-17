@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1pxytmr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.35.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1pxytmr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.35.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
   <bpmn:collaboration id="Collaboration_1w0mpnv">
     <bpmn:participant id="Participant_0p7ppwa" name="Периодческая задача" processRef="Process_18vz09l" />
   </bpmn:collaboration>
   <bpmn:process id="Process_18vz09l" isExecutable="true" camunda:historyTimeToLive="30">
-    <bpmn:endEvent id="Event_0841pfq">
-      <bpmn:incoming>Flow_0n0f07n</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="CheckDeliveryStatusTask" name="Check Delivery Status" camunda:delegateExpression="#{checkDeliveryStatusDelegate}">
+    <bpmn:serviceTask id="CheckDeliveryStatusTask" name="Check Delivery Status" camunda:delegateExpression="${checkDeliveryStatusDelegate}">
       <bpmn:incoming>Flow_0chfx50</bpmn:incoming>
       <bpmn:outgoing>Flow_0t25jz7</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -17,22 +14,36 @@
         <bpmn:timeCycle>0 * * * * ?</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="sendNotificationTask" name="Send notification" camunda:delegateExpression="#{sendNotificationDelegate}">
-      <bpmn:incoming>Flow_0t25jz7</bpmn:incoming>
-      <bpmn:outgoing>Flow_0n0f07n</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0n0f07n" sourceRef="sendNotificationTask" targetRef="Event_0841pfq" />
     <bpmn:sequenceFlow id="Flow_0chfx50" sourceRef="Event_1kkji3s" targetRef="CheckDeliveryStatusTask" />
-    <bpmn:sequenceFlow id="Flow_0t25jz7" sourceRef="CheckDeliveryStatusTask" targetRef="sendNotificationTask" />
+    <bpmn:sequenceFlow id="Flow_0t25jz7" sourceRef="CheckDeliveryStatusTask" targetRef="Gateway_15y4s06" />
+    <bpmn:endEvent id="Event_0841pfq">
+      <bpmn:incoming>Flow_0n0f07n</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="sendNotificationTask" name="Send notification" camunda:delegateExpression="${sendNotificationDelegate}">
+      <bpmn:incoming>Flow_1wyberr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n0f07n</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_15y4s06" name="Есть ли подходящие заказы">
+      <bpmn:incoming>Flow_0t25jz7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wyberr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0iovfwy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1wyberr" name="да" sourceRef="Gateway_15y4s06" targetRef="sendNotificationTask">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${foundOrders}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0iovfwy" name="нет" sourceRef="Gateway_15y4s06" targetRef="Event_0t1klcv">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!foundOrders}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_0t1klcv">
+      <bpmn:incoming>Flow_0iovfwy</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1w0mpnv">
       <bpmndi:BPMNShape id="Participant_0p7ppwa_di" bpmnElement="Participant_0p7ppwa" isHorizontal="true">
-        <dc:Bounds x="160" y="95" width="610" height="255" />
+        <dc:Bounds x="160" y="95" width="780" height="315" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0841pfq_di" bpmnElement="Event_0841pfq">
-        <dc:Bounds x="692" y="202" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_079u82i_di" bpmnElement="CheckDeliveryStatusTask">
         <dc:Bounds x="340" y="180" width="100" height="80" />
@@ -41,13 +52,28 @@
       <bpmndi:BPMNShape id="Event_1kkji3s_di" bpmnElement="Event_1kkji3s">
         <dc:Bounds x="242" y="202" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0841pfq_di" bpmnElement="Event_0841pfq">
+        <dc:Bounds x="782" y="202" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_021ljqz" bpmnElement="sendNotificationTask">
-        <dc:Bounds x="510" y="180" width="100" height="80" />
+        <dc:Bounds x="610" y="180" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_15y4s06_di" bpmnElement="Gateway_15y4s06" isMarkerVisible="true">
+        <dc:Bounds x="485" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="478" y="145" width="64" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0t1klcv_di" bpmnElement="Event_0t1klcv">
+        <dc:Bounds x="782" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="571" y="303" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0n0f07n_di" bpmnElement="Flow_0n0f07n">
-        <di:waypoint x="610" y="220" />
-        <di:waypoint x="692" y="220" />
+        <di:waypoint x="710" y="220" />
+        <di:waypoint x="782" y="220" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0chfx50_di" bpmnElement="Flow_0chfx50">
         <di:waypoint x="278" y="220" />
@@ -55,7 +81,22 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0t25jz7_di" bpmnElement="Flow_0t25jz7">
         <di:waypoint x="440" y="220" />
-        <di:waypoint x="510" y="220" />
+        <di:waypoint x="485" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wyberr_di" bpmnElement="Flow_1wyberr">
+        <di:waypoint x="535" y="220" />
+        <di:waypoint x="610" y="220" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="566" y="202" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0iovfwy_di" bpmnElement="Flow_0iovfwy">
+        <di:waypoint x="510" y="245" />
+        <di:waypoint x="510" y="320" />
+        <di:waypoint x="782" y="320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="516" y="280" width="18" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

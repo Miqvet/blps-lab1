@@ -28,7 +28,6 @@ public class CheckDeliveryStatusDelegate implements JavaDelegate {
         System.out.println("aaaaaaaaa");
         List<Order> orders = orderService.findByStatus(Order.OrderStatus.DELIVERED);
         LocalDateTime now = LocalDateTime.now();
-
         for (Order order : orders) {
             long hours = ChronoUnit.HOURS.between(order.getCreatedAt().toLocalDateTime(), now);
             UUID orderId = order.getId();
@@ -42,12 +41,14 @@ public class CheckDeliveryStatusDelegate implements JavaDelegate {
             }
 
             if (status != null) {
-                // Положим данные в process variables
+                execution.setVariable("foundOrders", false);
                 execution.setVariable("email", email);
                 execution.setVariable("orderId", orderId.toString());
                 execution.setVariable("status", status.name());
-                return; // завершаем после первого подходящего заказа
+                return;
             }
         }
+
+        execution.setVariable("foundOrders", false);
     }
 }
