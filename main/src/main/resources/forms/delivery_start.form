@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "text": "# Начать доставку",
+      "type": "text",
+      "layout": {
+        "row": "Row_0f067nk",
+        "columns": null
+      },
+      "id": "Field_15dciv2"
+    },
+    {
+      "label": "OrderId",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_03qttwa",
+        "columns": null
+      },
+      "id": "Field_0vk0wic",
+      "key": "textfield_dmjh78"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0navndn",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

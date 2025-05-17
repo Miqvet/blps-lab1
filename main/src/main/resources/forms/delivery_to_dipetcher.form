@@ -1,0 +1,41 @@
+{
+  "components": [
+    {
+      "text": "# Передача данных курьеру",
+      "type": "text",
+      "layout": {
+        "row": "Row_1bd7suu",
+        "columns": null
+      },
+      "id": "Field_125lp53"
+    },
+    {
+      "type": "image",
+      "layout": {
+        "row": "Row_0cmol3a",
+        "columns": null
+      },
+      "id": "Field_0rq6n3v",
+      "source": "https://avatars.mds.yandex.net/i?id=3faec30a930a405a86d5d94b1bed48a1_l-11723847-images-thumbs&n=13"
+    },
+    {
+      "label": "Передать",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_1fpg1h5",
+        "columns": null
+      },
+      "id": "Field_07pcfhm"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0hojr79",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

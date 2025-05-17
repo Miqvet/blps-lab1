@@ -1,45 +1,36 @@
 {
   "components": [
     {
-      "text": "# Запрос на доставку",
+      "text": "# Подтверждение доставки",
       "type": "text",
       "layout": {
-        "row": "Row_0i77lps",
+        "row": "Row_17a3s5f",
         "columns": null
       },
-      "id": "Field_14ecpp0"
+      "id": "Field_1rkzkk8"
     },
     {
-      "content": "Payment json:\n<pre>{{payment}}</pre>",
+      "content": "Orders json:\n<pre>{{orders}}</pre>",
       "type": "html",
       "layout": {
-        "row": "Row_1yfosyz",
+        "row": "Row_1i1ln3k",
         "columns": null
       },
-      "id": "Field_0lf4r6q"
+      "id": "Field_0vs6ua9"
     },
     {
       "label": "Подтвердить",
       "action": "submit",
       "type": "button",
       "layout": {
-        "row": "Row_0s1lgo2",
-        "columns": 4
-      },
-      "id": "Field_1lu814v"
-    },
-    {
-      "text": "OdrderId: {{orderId}}",
-      "type": "text",
-      "layout": {
-        "row": "Row_0s1lgo2",
+        "row": "Row_199fv67",
         "columns": null
       },
-      "id": "Field_1mtcuus"
+      "id": "Field_12vxdw0"
     }
   ],
   "type": "default",
-  "id": "order_payment_result",
+  "id": "Form_18rumhu",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.35.0"

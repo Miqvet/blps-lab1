@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "text": "# Что то пошло не так",
+      "type": "text",
+      "layout": {
+        "row": "Row_0hnaavf",
+        "columns": null
+      },
+      "id": "Field_0j8yt25"
+    },
+    {
+      "label": "Причина",
+      "components": [
+        {
+          "text": "### {{error_message}}",
+          "type": "text",
+          "layout": {
+            "row": "Row_1k9v667",
+            "columns": null
+          },
+          "id": "Field_13lm4k2"
+        }
+      ],
+      "showOutline": true,
+      "type": "group",
+      "layout": {
+        "row": "Row_0d751gk",
+        "columns": null
+      },
+      "id": "Field_07pgivs"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0uqubh4",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}

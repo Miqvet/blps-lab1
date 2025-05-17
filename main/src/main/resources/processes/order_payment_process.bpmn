@@ -21,14 +21,11 @@
     <bpmn:endEvent id="Event_1pbqr2t" name="Статус операции: ошибка">
       <bpmn:incoming>Flow_0yhmq0m</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Activity_1mxtzfa" name="Создание запроса на доставку" camunda:formRef="order_payment_result" camunda:formRefBinding="latest">
+    <bpmn:userTask id="Activity_1mxtzfa" name="Информация об успешной оплате" camunda:formRef="order_payment_result" camunda:formRefBinding="latest">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_076vide</bpmn:incoming>
       <bpmn:outgoing>Flow_1lhgyfn</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_1j89ji2" name="Запрос на доставку создан">
-      <bpmn:incoming>Flow_1lhgyfn</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:parallelGateway id="Gateway_1rnrw2e">
       <bpmn:incoming>Flow_09vkhex</bpmn:incoming>
       <bpmn:outgoing>Flow_0v456at</bpmn:outgoing>
@@ -46,13 +43,16 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isSuccess}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_076vide" sourceRef="Gateway_1rnrw2e" targetRef="Activity_1mxtzfa" />
-    <bpmn:sequenceFlow id="Flow_1lhgyfn" sourceRef="Activity_1mxtzfa" targetRef="Event_1j89ji2" />
     <bpmn:sequenceFlow id="Flow_0v456at" sourceRef="Gateway_1rnrw2e" targetRef="Event_1n4o748" />
+    <bpmn:sequenceFlow id="Flow_1lhgyfn" sourceRef="Activity_1mxtzfa" targetRef="Event_1j89ji2" />
+    <bpmn:endEvent id="Event_1j89ji2" name="Запрос на доставку создан">
+      <bpmn:incoming>Flow_1lhgyfn</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1tjqqn2">
       <bpmndi:BPMNShape id="Participant_1i7gz76_di" bpmnElement="order_payment_participant" isHorizontal="true">
-        <dc:Bounds x="129" y="80" width="731" height="440" />
+        <dc:Bounds x="129" y="80" width="751" height="440" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
@@ -78,6 +78,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0sd47cs_di" bpmnElement="Activity_1mxtzfa">
         <dc:Bounds x="580" y="400" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1j89ji2_di" bpmnElement="Event_1j89ji2">
         <dc:Bounds x="762" y="422" width="36" height="36" />

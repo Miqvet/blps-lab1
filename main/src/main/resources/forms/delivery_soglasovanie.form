@@ -1,0 +1,54 @@
+{
+  "components": [
+    {
+      "text": "# Согласование",
+      "type": "text",
+      "layout": {
+        "row": "Row_1xcvyno",
+        "columns": null
+      },
+      "id": "Field_06w4a5f"
+    },
+    {
+      "content": "Orders json:\n<pre>{{orders}}</pre>",
+      "type": "html",
+      "layout": {
+        "row": "Row_0gs024m",
+        "columns": null
+      },
+      "id": "Field_0b49d0u"
+    },
+    {
+      "label": "Действие",
+      "values": [
+        {
+          "label": "Согласовать",
+          "value": "true"
+        },
+        {
+          "label": "Не согласовать",
+          "value": "false"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1760cax",
+        "columns": null
+      },
+      "id": "Field_0woz9hv",
+      "key": "radio_yifaw",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0sxqnic",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.35.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.23.0",
+  "schemaVersion": 18
+}
