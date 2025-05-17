@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.camunda.spin.json.SpinJsonNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +21,15 @@ public class ProcessEmailSendingDelegate implements JavaDelegate {
     private String mail;
 
     private final YandexConnection connection;
-    @Override
     public void execute(DelegateExecution execution) throws Exception {
         var message = (DeliveryStatusMessage) execution.getVariable("deliveryStatus");
         log.info("Generating PDF for orderId={} and sending to {}", message.getOrderId(), message.getEmail());
-        if(message.getStatus().equals("DELIVERED")){
+
+        if (message.getStatus().equals("DELIVERED")) {
             message.setMessage(message.getMessage() + "\n" +
                     "Your order still save till: " + message.getTimestamp());
         }
+
         var pdfFile = PdfGenerator.generateReceipt(message);
         send(message.getEmail(), mail, message.getMessage(), pdfFile);
     }

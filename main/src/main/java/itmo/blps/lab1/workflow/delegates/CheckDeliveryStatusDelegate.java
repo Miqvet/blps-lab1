@@ -53,6 +53,6 @@ public class CheckDeliveryStatusDelegate implements JavaDelegate {
         execution.setVariable("orderId", "123e4567-e89b-12d3-a456-426655440000");
         execution.setVariable("status", "SHIPPED");
 
-        execution.setVariable("foundOrders", false);
+        execution.setVariable("foundOrders", true);
     }
 }

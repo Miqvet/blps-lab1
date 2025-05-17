@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.camunda.spin.Spin.JSON;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
